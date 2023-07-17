@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -18,13 +19,25 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider } from '@mui/material';
 import GlobalTheme from '../../Theme/GlobalTheme';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import {logout} from '../../Redux/admin/AdminInfoReducer';
 
 const drawerWidth = 240;
 
 const AdminAppbar = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
-      };
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('adminInfo');
+        dispatch(logout());
+        navigate('/admin/login');
+    }
     return (
         <div><AppBar
             position="fixed"
@@ -46,7 +59,12 @@ const AdminAppbar = () => {
                 <Typography variant="h6" noWrap component="div">
                     Responsive drawer
                 </Typography>
+                <Box sx={{ marginLeft: 'auto', display: { xs: 'none', md: 'flex' } }}>
+                    <Button variant='contained' color='secondary' onClick={handleLogout}>Logout</Button>
+                </Box>
             </Toolbar>
+
+
         </AppBar></div>
     )
 }

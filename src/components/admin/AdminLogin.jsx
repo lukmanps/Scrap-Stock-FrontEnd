@@ -1,35 +1,46 @@
 import { Grid, ThemeProvider, TextField, InputBase, CardActionArea, Typography, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { NavLink, useNavigate } from 'react-router-dom';
-import axios from '../../config/axios'
+import axios from '../../config/axios';
+import { useState } from 'react';
 
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUserInfo } from '../../Redux/UserInfoReducer';
 import { useForm } from 'react-hook-form';
 import GlobalTheme from '../../Theme/GlobalTheme';
 import { CommonButton } from '../../Common/CommonButton';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { isAdmin } from '../../Redux/admin/AdminInfoReducer';
 
 
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (loginData, event) => {
-    event.preventDefault();
+  const admin = useSelector((state) => state.adminInfo);
+
+  const onSubmit = (loginData) => {
     axios
-    .post('http://localhost:8000/admin/login', loginData)
-    .then((response)=>{
-      console.log(response.data, " :RESPONSE DATA");
-      navigate('/');
-    })
-    .catch((err) => {
-      console.log( 'AXIOS ERROR: ', err );
-    })
-    
+      .post('/admin/login', loginData)
+      .then((response) => {
+        if (response.data.status === false) {
+          console.log(response.data.message);
+          setError(response.data?.message);
+        } else {
+          console.log(response.data?.adminAccessToken, " :RESPONSE DATA");
+          dispatch(isAdmin(response.data?.adminAccessToken));
+          console.log(admin, ': Admin data in redux');
+          navigate('/');
+        }
+      })
+      .catch((err) => {
+        console.log('AXIOS ERROR: ', err);
+      })
+
 
   };
 
@@ -37,7 +48,7 @@ export default function Login() {
     <ThemeProvider theme={GlobalTheme}>
       <Grid container alignItems={'center'} justifyContent={'center'} spacing={2} sx={{ display: 'flex', flexDirection: 'row', p: '5' }}>
 
-        
+
 
         <Grid item xs={12} md={6} marginTop={5}>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -48,7 +59,7 @@ export default function Login() {
 
         <Grid item xs={12} sm={6}>
           <Box sx={{ display: { lg: 'flex' }, pt: 5, mt: 3, textAlign: 'center' }}>
-            <Typography variant='h3' sx={{fontWeight: 600}}  color={"green"}>Scrap Stock</Typography>
+            <Typography variant='h3' sx={{ fontWeight: 600 }} color={"green"}>Scrap Stock</Typography>
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
               {/* <Box flexDirection={'column'}>
 
@@ -82,10 +93,12 @@ export default function Login() {
                 error={Boolean(errors.password)}
                 helperText={errors.password ? errors.password.message : ''} />
 
+              {error ? (<div><Typography variant='body2' color={'error'}>{error}</Typography></div>) : ''}
+
               <Box mt={3} mb={2}>
                 <CommonButton type={'submit'} variant={'contained'} sx={{ px: 6 }}>Login</CommonButton>
               </Box>
-              
+
             </form>
           </Box>
         </Grid>

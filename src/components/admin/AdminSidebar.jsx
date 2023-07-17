@@ -18,6 +18,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider } from '@mui/material';
 import GlobalTheme from '../../Theme/GlobalTheme';
+import { NavLink, Navigate } from 'react-router-dom';
+
 
 
 const drawerWidth = 240;
@@ -36,30 +38,30 @@ const AdminSidebar = (props) => {
             <Toolbar />
             <Divider />
             <List>
-                {['User Management', 'Scrap Management', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+                <ListItem disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon> <InboxIcon /></ListItemIcon>
+                        <ListItemText><NavLink className={'nav-link'} to={'/admin'}>Dashboard</NavLink></ListItemText>
+                    </ListItemButton>
+                </ListItem>
+                <Divider />
+                <ListItem disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <InboxIcon /></ListItemIcon>
+                        <ListItemText><NavLink className={'nav-link'} to={'/admin/user-management'}> Customer Management </NavLink></ListItemText>
+                    </ListItemButton>
+                </ListItem>
+                <Divider />
+                <ListItem disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon> <InboxIcon /></ListItemIcon>
+                        <ListItemText><NavLink className={'nav-link'} to={'/scrap-management'}>Scrap Material</NavLink></ListItemText>
+                    </ListItemButton>
+                </ListItem>
             </List>
             <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
+            
         </div>
     );
 

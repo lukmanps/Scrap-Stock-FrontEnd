@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 
 
-export const CommonButton = ({children, color, disabled, size, variant, sx, type}) => {
+export const CommonButton = ({children, color, disabled, size, variant, sx, type, onClick}) => {
   return (
         <Button
         variant = {variant}
@@ -10,7 +10,8 @@ export const CommonButton = ({children, color, disabled, size, variant, sx, type
         disabled = {disabled}
         size = {size}
         sx = {sx}
-        type={type}>
+        type={type}
+        onClick={onClick}>
 
         {children}
 

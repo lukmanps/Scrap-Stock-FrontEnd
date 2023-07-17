@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Button, ThemeProvider, Typography, Card, CardMedia, CardContent } from '@mui/material';
 import React from 'react';
 import GlobalTheme from '../../Theme/GlobalTheme';
-import UserNavBar from '../../components/NavBar/UserNavBar';
+import UserNavBar from '../../components/user/NavBar/UserNavBar';
 import { CommonButton } from '../../Common/CommonButton';
 import { Margin } from '@mui/icons-material';
 
@@ -9,7 +9,7 @@ import { Margin } from '@mui/icons-material';
 function Home() {
   return (
     <ThemeProvider theme={GlobalTheme}>
-      <UserNavBar button={'Login'} />
+      <UserNavBar button={'Login'} link={'login'}/>
 
       <Box >
         <Box>

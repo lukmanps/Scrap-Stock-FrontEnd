@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { Grid, ThemeProvider, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useForm } from 'react-hook-form';
-import {  NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import GlobalTheme from '../../Theme/GlobalTheme';
@@ -9,8 +10,8 @@ import { CommonButton } from '../../Common/CommonButton';
 
 import ErrorText from '../../Common/ErrorText';
 import axios from '../../config/axios';
-import { isUser } from '../../Redux/AuthReducer';
-import { addUserInfo } from '../../Redux/UserInfoReducer';
+import { isUser } from '../../Redux/user/AuthReducer';
+import { addUserInfo } from '../../Redux/user/UserInfoReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -19,13 +20,14 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [error, setError] = useState('');
 
-  const authUser = useSelector((state)=>{
+  const authUser = useSelector((state) => {
     return state.auth;
   })
 
   console.log(authUser, " : SIGN UP AUTH STATUS");
-  
+
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
 
   const onSubmit = (data => {
@@ -36,12 +38,13 @@ export default function Signup() {
         if (response.data.status === false) {
           console.log('User Registration Failed');
           //Show Error message to user
+          setError(response.data?.message);
         } else {
           localStorage.setItem('userData', response?.data?.accessToken);
           navigate('/admin/adminDashboard');
           dispatch(isUser(response.data?.accessToken));
           dispatch(addUserInfo(response.data?.userData))
-          
+
         }
       })
       .catch((err) => {
@@ -147,6 +150,8 @@ export default function Signup() {
                 })}
                 error={Boolean(errors.confirmPassword)}
                 helperText={errors.confirmPassword ? errors.confirmPassword.message : ''} />
+
+              {error ? (<div><Typography variant='body2' color={'error'}>{error}</Typography></div>) : ''}
 
               <Box mt={3} mb={2}>
                 <CommonButton type={'submit'} variant={'contained'} sx={{ px: 6 }}>Register</CommonButton>

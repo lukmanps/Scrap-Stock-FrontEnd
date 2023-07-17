@@ -13,21 +13,27 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { ThemeProvider } from '@emotion/react';
-import GlobalTheme from '../../Theme/GlobalTheme';
-import { Link } from 'react-router-dom';
+import GlobalTheme from '../../../Theme/GlobalTheme';
+import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { CommonButton } from '../../Common/CommonButton';
+import { CommonButton } from '../../../Common/CommonButton';
 
 import { useNavigate } from 'react-router-dom';
 
-const pages = ['Check Price List', 'Register'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import {clearUserInfo} from '../../../Redux/user/UserInfoReducer';
+import { logout } from '../../../Redux/user/AuthReducer';
 
-function UserNavBar({button}) {
+const pages = ['Check Price List', 'Register'];
+const settings = ['Logout'];
+
+
+
+function UserNavBar({ button, link }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   const handleOpenNavMenu = (event) => {
@@ -44,14 +50,27 @@ function UserNavBar({button}) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  
+  const handleLogout = () => {
+    localStorage.removeItem('userData');
+    dispatch(clearUserInfo());
+    dispatch(logout());
+    navigate('/')
+  }
 
   const user = useSelector((state) => state.userInfo);
-  console.log(user, ': USER INFO in navbar');
 
-  
+  const handleLoginButton = (button) =>{
+    console.log('clicked', button)
+    if(button === 'register'){
+      navigate('/signup');
+    } else {
+      navigate('/login');
+    }
+  }
 
   return (
-    <AppBar position="fixed" color="bg"> 
+    <AppBar position="fixed" color="bg">
       <Container maxWidth="xl">
         <Toolbar>
 
@@ -60,7 +79,6 @@ function UserNavBar({button}) {
             variant="h5"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -71,11 +89,12 @@ function UserNavBar({button}) {
               textDecoration: 'none',
             }}
           >
-            Scrap Stock
+            <NavLink to={'/'} className={'nav-link'}>Scrap Stock</NavLink>
+            
           </Typography>
 
           {/* HAMBURGER IN SMALL SCREEN */}
-          <Box sx={{ flexGrow:1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 
             <IconButton
               size="large"
@@ -112,7 +131,7 @@ function UserNavBar({button}) {
               ))}
             </Menu>
           </Box>
-          
+
           <Typography
             variant="h5"
             noWrap
@@ -131,47 +150,56 @@ function UserNavBar({button}) {
             Scrap Stock
           </Typography>
 
-          <Box sx={{ marginLeft: 'auto', display: {xs: 'none', md: 'flex'}}}>
-              <CommonButton variant='outlined' color='secondary'>
-                Check Price List
-                </CommonButton>
+          <Box sx={{ marginLeft: 'auto', display: { xs: 'none', md: 'flex' } }}>
+            <CommonButton variant='outlined' color='secondary'>
+              Check Price List
+            </CommonButton>
           </Box>
 
-          <Box sx={{ display: {xs: 'flex', xl: 'flex'} }}>
-          <CommonButton variant="contained" sx={{marginLeft: '10px'}}>{button}</CommonButton>
-            {/* <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+          <Box sx={{ display: { xs: 'flex', xl: 'flex' } }}>
+
+            { user ? <Box ml={3}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={user.username} src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {/* {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))} */}
+                <Typography variant='subtitle1'>Hi {user.username}</Typography>
+                <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center" color={'error'}>Logout</Typography>
                 </MenuItem>
-              ))}
-            </Menu> */}
+              </Menu>
+            </Box> : <CommonButton variant="contained" sx={{marginLeft: '10px'}}><NavLink to={`/${link}`} className={'nav-link'}>{button}</NavLink></CommonButton> }
+
+            {/*  */}
+            
           </Box>
-          
+
         </Toolbar>
       </Container>
     </AppBar>
-   
+
   );
 }
 export default UserNavBar;

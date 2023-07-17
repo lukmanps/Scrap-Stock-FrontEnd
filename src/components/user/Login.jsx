@@ -3,10 +3,10 @@ import Box from '@mui/material/Box';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from '../../config/axios'
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isUser } from '../../Redux/AuthReducer';
-import { addUserInfo } from '../../Redux/UserInfoReducer';
+import { isUser } from '../../Redux/user/AuthReducer';
+import { addUserInfo } from '../../Redux/user/UserInfoReducer';
 import { useForm } from 'react-hook-form';
 import GlobalTheme from '../../Theme/GlobalTheme';
 import { CommonButton } from '../../Common/CommonButton';
@@ -16,11 +16,12 @@ import { CommonButton } from '../../Common/CommonButton';
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const authUser = useSelector((state) => {
     return state.auth;
   });
-  
+
   const userInfo = useSelector((state) => {
     return state.userInfo
   })
@@ -30,6 +31,8 @@ export default function Login() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  let loginErr = '';
+
   const onSubmit = (loginData, event) => {
     event.preventDefault();
     console.log(loginData, "Data in Login");
@@ -37,15 +40,17 @@ export default function Login() {
       .post('/login', loginData)
       .then((response) => {
         if (response.data.status === false) {
-          console.log(response.data.message, ': RESPONSE');
+          console.log(response.data?.message, ': RESPONSE');
           //Show error message to user
-
+          // loginErr = response.data?.message;
+          setError(response.data?.message);
+          console.log(loginErr, ': LOGin errr');
         } else {
-          localStorage.setItem('userData', response.data.accessToken);
-          navigate('/')
+          localStorage.setItem('userData', response.data?.accessToken);
           console.log(response.data?.userData)
           dispatch(isUser(response.data?.accessToken));
           dispatch(addUserInfo(response.data?.userData));
+          navigate('/');
         }
       })
       .catch((err) => {
@@ -94,13 +99,19 @@ export default function Login() {
                 error={Boolean(errors.password)}
                 helperText={errors.password ? errors.password.message : ''} />
 
+
+                {error ? ( <div><Typography variant='body2' color={'error'}>{error}</Typography></div>) : ''}
+                
+
               <Box mt={3} mb={2}>
                 <CommonButton type={'submit'} variant={'contained'} sx={{ px: 6 }}>Login</CommonButton>
               </Box>
-              <Typography>OR</Typography>
+
+
+              {/* <Typography>OR</Typography>
               <Box mt={2}>
                 <CommonButton variant={'outlined'} color={'secondary'} sx={{ px: 6 }}>Signin with Google</CommonButton>
-              </Box>
+              </Box> */}
             </form>
           </Box>
         </Grid>
