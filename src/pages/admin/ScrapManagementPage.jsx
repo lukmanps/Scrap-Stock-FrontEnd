@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import ScrapManagement from '../../components/admin/scrap-management/scrap-management'
 
 const ScrapManagementPage = () => {
   return (
-    <div></div>
+    <div>
+      <ScrapManagement/>
+    </div>
   )
 }
 

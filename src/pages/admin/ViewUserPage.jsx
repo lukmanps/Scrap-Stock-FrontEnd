@@ -1,5 +1,5 @@
 import React from 'react'
-import UserCard from '../../components/admin/ViewUser'
+import UserCard from '../../components/admin/customer-management/ViewUser'
 
 const ViewUserPage = () => {
   return (

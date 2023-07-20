@@ -89,7 +89,7 @@ const GlobalTheme = createTheme({
           },
           MuiInput: {
             styleOverrides: {
-              root: {
+              input: {
                 '&:before': {
                   borderBottom: '2px solid var(--TextField-brandBorderColor)',
                 },

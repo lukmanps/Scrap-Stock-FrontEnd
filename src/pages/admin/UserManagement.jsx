@@ -1,12 +1,13 @@
 import React from 'react';
 import UsersList from '../../components/admin/UsersList';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { Typography } from '@mui/material';
+import CustomerManagement from '../../components/admin/customer-management/CustomerManagement';
 
 export const UserManagement = () => {
-    const adminInfo = useSelector((state) => state.adminInfo);
     return (
         <div>
-            <UsersList />
+            <CustomerManagement/>
         </div>
     )
 }

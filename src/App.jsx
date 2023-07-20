@@ -22,6 +22,7 @@ import UserManagement from './pages/admin/UserManagement';
 import AdminDashboard from './pages/admin/AdminDashboardPage';
 import ViewUserPage from './pages/admin/ViewUserPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+import ScrapManagement from './pages/admin/ScrapManagementPage';
 
 //Redux State
 import { isAdmin } from './Redux/admin/AdminInfoReducer';
@@ -61,7 +62,8 @@ function App() {
           <Route path='/admin' element={admin ? <AdminLayout /> : <Navigate to={'/admin/login'} replace={true} />} >
             <Route index  element={<AdminDashboardPage />} />
             <Route path='user-management' element={<UserManagement/>} />
-            <Route path='/admin/view-user/:id' element={<ViewUserPage/>} />
+            <Route path='view-user/:id' element={<ViewUserPage/>} />
+            <Route path='scrap-management' element={<ScrapManagement/>} />
           </Route>
           {/* <Route path='*' element={<PageNotFound/>}/> */}
         </Routes>
