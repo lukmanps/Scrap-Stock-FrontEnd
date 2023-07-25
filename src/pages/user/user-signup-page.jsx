@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material'
 import GlobalTheme from '../../Theme/GlobalTheme'
-import Signup from '../../components/user/signup'
+import Signup from '../../components/user/register/Signup'
 import UserNavBar from '../../components/user/layout/user-navbar'
 
  function UserSignUp() {

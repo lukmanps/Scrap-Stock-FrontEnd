@@ -8,23 +8,19 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { ThemeProvider } from '@emotion/react';
 import GlobalTheme from '../../../Theme/GlobalTheme';
-import { Link, NavLink } from 'react-router-dom';
+import {  NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CommonButton } from '../../../Common/CommonButton';
 
+import handleLogout from '../../../APIs/user/logoutUtils';
+
 import { useNavigate } from 'react-router-dom';
 
-import {clearUserInfo} from '../../../Redux/user/UserInfoReducer';
-import { logout } from '../../../Redux/user/AuthReducer';
-
 const pages = ['Check Price List', 'Register'];
-const settings = ['Logout'];
 
 
 
@@ -34,7 +30,6 @@ function UserNavBar({ button, link }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -51,11 +46,10 @@ function UserNavBar({ button, link }) {
     setAnchorElUser(null);
   };
   
-  const handleLogout = () => {
-    localStorage.removeItem('userData');
-    dispatch(clearUserInfo());
-    dispatch(logout());
-    navigate('/')
+  const doLogout = handleLogout();
+  const handleLogoutClick = () => {
+   doLogout();
+   navigate('/');
   }
 
   const user = useSelector((state) => state.userInfo);
@@ -186,7 +180,7 @@ function UserNavBar({ button, link }) {
                   </MenuItem>
                 ))} */}
                 <Typography variant='subtitle1'>Hi {user.username}</Typography>
-                <MenuItem onClick={handleLogout}>
+                <MenuItem onClick={handleLogoutClick}>
                   <Typography textAlign="center" color={'error'}>Logout</Typography>
                 </MenuItem>
               </Menu>

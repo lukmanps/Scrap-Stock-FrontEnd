@@ -77,6 +77,7 @@ const SelectItems = (props) => {
                 <CardActions>
                   <Checkbox
                     name={scrapItem.scrap}
+                    id={scrapItem._id}
                     onChange={handleCheckBoxChange}
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={<CheckCircleIcon />}

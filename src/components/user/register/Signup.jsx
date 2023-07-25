@@ -5,13 +5,13 @@ import { useForm } from 'react-hook-form';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import GlobalTheme from '../../Theme/GlobalTheme';
-import { CommonButton } from '../../Common/CommonButton';
+import GlobalTheme from '../../../Theme/GlobalTheme';
+import { CommonButton } from '../../../Common/CommonButton';
 
-import ErrorText from '../../Common/ErrorText';
-import axios from '../../config/axios';
-import { isUser } from '../../Redux/user/AuthReducer';
-import { addUserInfo } from '../../Redux/user/UserInfoReducer';
+import ErrorText from '../../../Common/ErrorText';
+import axios from '../../../config/axios';
+import { isUser } from '../../../Redux/user/AuthReducer';
+import { addUserInfo } from '../../../Redux/user/UserInfoReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -41,9 +41,9 @@ export default function Signup() {
           setError(response.data?.message);
         } else {
           localStorage.setItem('userData', response?.data?.accessToken);
-          navigate('/admin/adminDashboard');
           dispatch(isUser(response.data?.accessToken));
           dispatch(addUserInfo(response.data?.userData))
+          navigate('/admin/adminDashboard');
 
         }
       })

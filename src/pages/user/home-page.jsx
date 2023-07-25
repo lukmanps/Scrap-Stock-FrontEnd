@@ -1,12 +1,20 @@
 import { Box, Container, Grid, Button, ThemeProvider, Typography, Card, CardMedia, CardContent } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import GlobalTheme from '../../Theme/GlobalTheme';
 import UserNavBar from '../../components/user/layout/user-navbar';
 import { CommonButton } from '../../Common/CommonButton';
 import { Margin } from '@mui/icons-material';
-
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Home() {
+  const navigate = useNavigate();
+  const userData = useSelector((state)=> state.userInfo);
+
+  const handleSellScrap = () => {
+    navigate('/sell-scrap');
+  }
+
   return (
     <ThemeProvider theme={GlobalTheme}>
       <UserNavBar button={'Login'} link={'login'}/>
@@ -39,7 +47,7 @@ function Home() {
         </Box>
 
         <Box padding={5}>
-          <Button variant='contained' size='large' sx={{ fontSize: '1.5rem', fontWeight: 500 }}>Sell Scrap</Button>
+          <Button variant='contained' size='large' sx={{ fontSize: '1.5rem', fontWeight: 500 }} onClick={handleSellScrap}>Sell Scrap</Button>
         </Box>
 
         <Box>

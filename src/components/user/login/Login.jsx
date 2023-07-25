@@ -1,15 +1,15 @@
 import { Grid, ThemeProvider, TextField, InputBase, CardActionArea, Typography, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { NavLink, useNavigate } from 'react-router-dom';
-import axios from '../../config/axios'
+import axios from '../../../config/axios'
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isUser } from '../../Redux/user/AuthReducer';
-import { addUserInfo } from '../../Redux/user/UserInfoReducer';
+import { isUser } from '../../../Redux/user/AuthReducer';
+import { addUserInfo } from '../../../Redux/user/UserInfoReducer';
 import { useForm } from 'react-hook-form';
-import GlobalTheme from '../../Theme/GlobalTheme';
-import { CommonButton } from '../../Common/CommonButton';
+import GlobalTheme from '../../../Theme/GlobalTheme';
+import { CommonButton } from '../../../Common/CommonButton';
 
 
 

@@ -3,7 +3,7 @@ import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import GlobalTheme from './Theme/GlobalTheme';
 
 //Layouts
@@ -29,29 +29,39 @@ import ScrapManagement from './pages/admin/ScrapManagementPage';
 import { isAdmin } from './Redux/admin/AdminInfoReducer';
 import { addUserInfo } from './Redux/user/UserInfoReducer';
 import { isUser } from './Redux/user/AuthReducer';
+import handleLogout from './APIs/user/logoutUtils';
 
 function App() {
   const dispatch = useDispatch();
+  const navigate =  useNavigate();
 
   const user = useSelector((state) => state.authUser);
+  const userData = useSelector((state) => state.userInfo);
   const admin = useSelector((state) => state.adminInfo);
 
+  const doLogout = handleLogout();
+
   useEffect(() => {
+    if(userData.status === false){
+      doLogout();
+      navigate('/');
+    }
     dispatch(isUser(user));
     dispatch(isAdmin(admin));
   }, [dispatch]);
 
   return (
     <ThemeProvider theme={GlobalTheme}>
-      <BrowserRouter>
+
         <Routes>
           {/* <Route path='/' element={<Home/>}/> */}
           <Route path='/login' element={user ? <Navigate to={'/'} replace={true} /> : <UserLogin />} />
           <Route path='/signup' element={user ? <Navigate to={'/'} replace={true} /> : <UserSignUp />} />
+          
+          <Route path='/' element={<Home/>} />
 
-          <Route path='/' element={user ? <UserLayout /> : <Home />}>
-            <Route index element={<Home/>} />
-            <Route path='sell-scrap' element={<SellScrapPage/>} />
+          <Route path='/' element={user ? <UserLayout /> : <Navigate to={'/login'} replace={true}/>}>
+            <Route path='/sell-scrap' element={<SellScrapPage/>} />
           </Route>
 
 
@@ -66,7 +76,7 @@ function App() {
           </Route>
           {/* <Route path='*' element={<PageNotFound/>}/> */}
         </Routes>
-      </BrowserRouter>
+
     </ThemeProvider>
   )
 }

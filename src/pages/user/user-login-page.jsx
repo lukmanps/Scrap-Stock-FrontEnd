@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from '../../components/user/Login';
+import Login from '../../components/user/login/Login';
 import UserNavBar from '../../components/user/layout/user-navbar';
 
 const UserLogin = (props) => {
