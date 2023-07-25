@@ -1,8 +1,8 @@
 import React from 'react'
 import Login from '../../components/user/Login';
-import UserNavBar from '../../components/user/NavBar/UserNavBar';
+import UserNavBar from '../../components/user/layout/user-navbar';
 
-const UserLogin = () => {
+const UserLogin = (props) => {
   return (
     <div style={{overflow: 'hidden'}}>
       <UserNavBar button={'Register'} link={'signup'}/>

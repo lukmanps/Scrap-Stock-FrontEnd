@@ -70,8 +70,8 @@ function UserNavBar({ button, link }) {
   }
 
   return (
-    <AppBar position="fixed" color="bg">
-      <Container maxWidth="xl">
+    <AppBar position="fixed" color="bg" sx={{marginBottom:'5rem'}}>
+      <Container maxWidth="xl" >
         <Toolbar>
 
           {/* LOGO */}

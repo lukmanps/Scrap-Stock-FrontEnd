@@ -60,14 +60,18 @@ const CustomerManagement = () => {
     []
   );
 
-  React.useEffect(() => {
+  const fetchUserData=()=>{
     axios.get('/admin/user-management')
-      .then((response) => {
-        setUser(response.data);
-      })
-      .catch((err) => {
-        console.log(err, " :Axios Error");
-      })
+    .then((response) => {
+      setUser(response.data);
+    })
+    .catch((err) => {
+      console.log(err, " :Axios Error");
+    })
+  }
+
+  React.useEffect(() => {
+    fetchUserData()
   }, []);
 
   return (
@@ -117,7 +121,7 @@ const CustomerManagement = () => {
             <CustomersTable
               count={users.length}
               items={users}
-              
+              fetchUserData={fetchUserData}
             />
           </Stack>
         </Container>

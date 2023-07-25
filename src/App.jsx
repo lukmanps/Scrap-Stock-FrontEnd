@@ -12,9 +12,10 @@ import UserLayout from './components/user/layout/Layout';
 
 
 //User Pages
-import UserSignUp from './pages/user/UserSignUpPage';
-import UserLogin from './pages/user/UserLoginPage';
-import Home from './pages/user/HomePage';
+import UserSignUp from './pages/user/user-signup-page';
+import UserLogin from './pages/user/user-login-page';
+import Home from './pages/user/home-page';
+import SellScrapPage from './pages/user/sell-scrap-page';
 
 //Admin Pages
 import AdminLogin from './pages/admin/AdminLoginPage';
@@ -35,9 +36,6 @@ function App() {
   const user = useSelector((state) => state.authUser);
   const admin = useSelector((state) => state.adminInfo);
 
-  // const user = localStorage.getItem('userData');
-  // const admin = localStorage.getItem('adminInfo');
-
   useEffect(() => {
     dispatch(isUser(user));
     dispatch(isAdmin(admin));
@@ -51,8 +49,9 @@ function App() {
           <Route path='/login' element={user ? <Navigate to={'/'} replace={true} /> : <UserLogin />} />
           <Route path='/signup' element={user ? <Navigate to={'/'} replace={true} /> : <UserSignUp />} />
 
-          <Route path='/' element={user ? <UserLayout /> : <Home/>}>
+          <Route path='/' element={user ? <UserLayout /> : <Home />}>
             <Route index element={<Home/>} />
+            <Route path='sell-scrap' element={<SellScrapPage/>} />
           </Route>
 
 
