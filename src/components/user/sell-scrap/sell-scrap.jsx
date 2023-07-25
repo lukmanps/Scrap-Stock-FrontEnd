@@ -15,10 +15,10 @@ const SellScrap = () => {
   const [formData, setFormData] = useState('');
   const [timeSlot, setTimeSlot] = useState('');
 
-  const user = useSelector((state) => state.authUser);
+  const user = useSelector((state) => state.userInfo);
 
   const combinedData = {
-    user: user,
+    user: user.id,
     scrap : scrap,
     formData : formData,
     timeSlot: timeSlot
