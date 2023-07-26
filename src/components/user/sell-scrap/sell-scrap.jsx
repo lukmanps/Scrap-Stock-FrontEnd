@@ -27,10 +27,6 @@ const SellScrap = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = React.useState({});
 
-  
-
-
-
   const completedSteps = () => {
     return Object.keys(completed).length;
   };

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import './App.css';
+// import './App.css';
+import './components/user/layout/Layout'
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';

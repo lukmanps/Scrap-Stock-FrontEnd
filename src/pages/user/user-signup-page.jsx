@@ -6,7 +6,7 @@ import UserNavBar from '../../components/user/layout/user-navbar'
 
  function UserSignUp() {
   return (
-    <div style={{overflow: 'hidden'}}>
+    <div style={{overflow: 'hidden'}} id='user-body'>
       <ThemeProvider theme={GlobalTheme}>
         <UserNavBar button={'Login'} link={'login'}/>
         <Signup/>
