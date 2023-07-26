@@ -19,6 +19,7 @@ import { ThemeProvider } from '@emotion/react';
 import GlobalTheme from '../../../Theme/GlobalTheme';
 import AddMaterialModal from '../section/material/add-material-modal';
 import axios from '../../../config/axios';
+import AdminTheme from '../../../Theme/AdminTheme';
 
 
 
@@ -45,9 +46,8 @@ const ScrapManagement = () => {
     })
   },[])
   return (
-    
-
-      <Box
+  <ThemeProvider theme={AdminTheme}>
+    <Box
         component="main"
         sx={{
           flexGrow: 1,
@@ -122,6 +122,8 @@ const ScrapManagement = () => {
           </Stack>
         </Container>
       </Box>
+  </ThemeProvider>
+      
 
   )
 

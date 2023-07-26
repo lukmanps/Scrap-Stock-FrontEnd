@@ -30,6 +30,7 @@ import ScrapManagement from './pages/admin/ScrapManagementPage';
 import { isAdmin } from './Redux/admin/AdminInfoReducer';
 import { addUserInfo } from './Redux/user/UserInfoReducer';
 import { isUser } from './Redux/user/AuthReducer';
+import PickupsPage from './pages/admin/pickupsPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function App() {
             <Route path='user-management' element={<UserManagement/>} />
             <Route path='view-user/:id' element={<ViewUserPage/>} />
             <Route path='scrap-management' element={<ScrapManagement/>} />
+            <Route path='pickups' element={<PickupsPage/>} />
           </Route>
           {/* <Route path='*' element={<PageNotFound/>}/> */}
         </Routes>

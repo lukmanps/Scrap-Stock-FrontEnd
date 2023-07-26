@@ -10,7 +10,7 @@ import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/materia
 import { CustomersTable } from '../section/customer/cutomer-table';
 import { CustomersSearch } from '../section/customer/customer-search';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import GlobalTheme from '../../../Theme/GlobalTheme';
+import AdminTheme from '../../../Theme/AdminTheme';
 import axios from '../../../config/axios';
 // import { applyPagination } from 'src/utils/apply-pagination';
 
@@ -75,7 +75,7 @@ const CustomerManagement = () => {
   }, []);
 
   return (
-    <ThemeProvider theme={GlobalTheme}>
+    <ThemeProvider theme={AdminTheme}>
 
       <Box
         component="main"

@@ -61,6 +61,13 @@ const AdminSidebar = (props) => {
                         <ListItemText><NavLink className={'nav-link'} to={'/admin/scrap-management'}>Scrap Material</NavLink></ListItemText>
                     </ListItemButton>
                 </ListItem>
+                <Divider />
+                <ListItem disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon> <InboxIcon /></ListItemIcon>
+                        <ListItemText><NavLink className={'nav-link'} to={'/admin/pickups'}>Scrap Pickups</NavLink></ListItemText>
+                    </ListItemButton>
+                </ListItem>
             </List>
             <Divider />
 
