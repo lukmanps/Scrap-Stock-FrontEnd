@@ -13,23 +13,18 @@ const steps = ['Select Scraps', 'Enter Details', 'Schedule Pickup'];
 const SellScrap = () => {
   const [scrap, setScrap] = useState([]);
   const [formData, setFormData] = useState('');
-  const [timeSlot, setTimeSlot] = useState('');
-
-  const user = useSelector((state) => state.authUser);
-
-  const combinedData = {
-    user: user,
-    scrap : scrap,
-    formData : formData,
-    timeSlot: timeSlot
-  }
-
+  const [timeSlot, setTimeSlot] = useState({});
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = React.useState({});
 
-  
+  const user = useSelector((state) => state.userInfo);
 
-
+  const combinedData = {
+    user: user.id,
+    scrap: scrap,
+    formData: formData,
+    timeSlot: timeSlot
+  }
 
   const completedSteps = () => {
     return Object.keys(completed).length;
@@ -80,38 +75,55 @@ const SellScrap = () => {
   //Data State
   const handleSelectedItems = (data) => {
     setScrap(data);
-    console.log(data, "SELECTED");
     handleNext();
   }
 
+  console.log(scrap, " :: SCRAP received")
+
   const handleFormData = (data) => {
-    console.log(data);
-    if(!data){
+    if (!data) {
       toast.error('Enter your Details');
-    } else{
+    } else {
       setFormData(data);
       handleNext();
     }
-    
   }
 
-  const handleTimeSlot = (time) => {
-    setTimeSlot(time);
-    console.log(time, ":: TIme slot in sell scrap");
+  console.log(formData, " ::FORM DATA received")
+  const handleTimeSlot = (date, time) => {
+    setTimeSlot({
+      date: date,
+      time: time
+    });
   }
+
+  console.log(timeSlot, " :: Time Slot Received")
 
 
 
   const schedulePickup = (e) => {
     e.preventDefault();
-    submitPickupSchedule(combinedData)
+    if (combinedData.user && combinedData.scrap && combinedData.formData && combinedData.timeSlot) {
+      submitPickupSchedule(combinedData)
+        .then((status) => {
+          if (status === false) {
+            toast.error("Pickup couldn't Schedule")
+          } else {
+            toast.success("Pickup Scheduled");
+          }
+        })
+    } else {
+      toast.error('Complete the steps to schedule pickup')
+    }
   }
+
+
 
 
   return (
     <ThemeProvider theme={GlobalTheme}>
       <Box sx={{ width: '100%' }}>
-      <Toaster />
+        <Toaster />
         <Stepper nonLinear activeStep={activeStep}>
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]}>
@@ -173,9 +185,9 @@ const SellScrap = () => {
                   Back
                 </Button>
                 <Box sx={{ flex: '1 1 auto' }} />
-                
+
                 <Box mr={5}>
-                  <Button variant='outlined' onClick={handleReset} sx={{mt:'3px'}}>Reset</Button>
+                  <Button variant='outlined' onClick={handleReset} sx={{ mt: '3px' }}>Reset</Button>
                 </Box>
 
                 {activeStep !== steps.length &&
@@ -185,7 +197,7 @@ const SellScrap = () => {
                     </Typography>
                   ) : '')}
 
-                {activeStep === steps.length-1 && (
+                {activeStep === steps.length - 1 && (
                   <Button variant='contained' size='large' onClick={schedulePickup}>Schedule Pickup</Button>
                 )}
               </Box>

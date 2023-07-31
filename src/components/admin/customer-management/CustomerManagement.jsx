@@ -10,7 +10,7 @@ import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/materia
 import { CustomersTable } from '../section/customer/cutomer-table';
 import { CustomersSearch } from '../section/customer/customer-search';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import GlobalTheme from '../../../Theme/GlobalTheme';
+import AdminTheme from '../../../Theme/AdminTheme';
 import axios from '../../../config/axios';
 // import { applyPagination } from 'src/utils/apply-pagination';
 
@@ -41,7 +41,7 @@ const CustomerManagement = () => {
   // const customersIds = useCustomerIds(customers);
   // const customersSelection = useSelection(customersIds);
   const [users, setUser] = React.useState([]);
-  let [status, setStatus] = React.useState(false);
+  let [status, setStatus] = React.useState('');
   let [remove, setRemove] = React.useState(false);
 
   console.log(users, 'Userss');
@@ -60,10 +60,14 @@ const CustomerManagement = () => {
     []
   );
 
+  const handleCustomerStatus = (status) => {
+    setStatus(status);
+  }
+
   const fetchUserData=()=>{
     axios.get('/admin/user-management')
     .then((response) => {
-      setUser(response.data);
+      setUser(response?.data);
     })
     .catch((err) => {
       console.log(err, " :Axios Error");
@@ -75,7 +79,7 @@ const CustomerManagement = () => {
   }, []);
 
   return (
-    <ThemeProvider theme={GlobalTheme}>
+    <ThemeProvider theme={AdminTheme}>
 
       <Box
         component="main"
@@ -104,18 +108,7 @@ const CustomerManagement = () => {
                  
                 </Stack>
               </Stack>
-              <div>
-                <Button
-                  startIcon={(
-                    <SvgIcon fontSize="small">
-                      <PlusIcon />
-                    </SvgIcon>
-                  )}
-                  variant="contained"
-                >
-                  Add
-                </Button>
-              </div>
+              
             </Stack>
             <CustomersSearch />
             <CustomersTable

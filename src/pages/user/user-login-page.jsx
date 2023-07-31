@@ -4,7 +4,7 @@ import UserNavBar from '../../components/user/layout/user-navbar';
 
 const UserLogin = (props) => {
   return (
-    <div style={{overflow: 'hidden'}}>
+    <div style={{overflow: 'hidden'}} id='user-body'>
       <UserNavBar button={'Register'} link={'signup'}/>
       <Login/>
     </div>

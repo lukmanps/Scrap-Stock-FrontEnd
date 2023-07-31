@@ -14,7 +14,11 @@ const GlobalTheme = createTheme({
         },
         bg: {
             // Dark Gray as Background.
-            main: '#1E1E1E'
+            main: '#1b1b1b'
+        },
+
+        background: {
+            main: '#1b1b1b'
         }
     },
 

@@ -16,10 +16,9 @@ function Home() {
   }
 
   return (
-    <ThemeProvider theme={GlobalTheme}>
+    <div id='user-body'>
+      <ThemeProvider theme={GlobalTheme}>
       <UserNavBar button={'Login'} link={'login'}/>
-      
-      <Box >
         <Box>
           <Container maxWidth='xl' margintop={1}>
 
@@ -43,15 +42,16 @@ function Home() {
                 </Box>
               </Grid>
             </Grid>
-          </Container>
-        </Box>
 
         <Box padding={5}>
           <Button variant='contained' size='large' sx={{ fontSize: '1.5rem', fontWeight: 500 }} onClick={handleSellScrap}>Sell Scrap</Button>
         </Box>
 
-        <Box>
-          <Container maxWidth='xl'>
+
+            <Grid container justifyContent={'center'}>
+            <Button variant='contained' size='large' sx={{ fontSize: '1.5rem', fontWeight: 500 }}>Sell Scrap</Button>
+            </Grid>
+
             <Grid container spacing={12} alignContent={'center'} alignItems={'center'} justifyContent={'center'}>
               <Grid item xs={12} md={4} >
                 <img src='src\assets\children-vector.png' alt='Children Vector' width={'100%'} />
@@ -62,12 +62,8 @@ function Home() {
               </Grid>
 
             </Grid>
-          </Container>
-        </Box>
 
-        <Box>
-          <Container maxWidth='xl' >
-            <Grid container spacing={3} display={'flex'} flexDirection={'row'} justifyContent={'space-around'} mt={5}>
+            <Grid container spacing={3}justifyContent={'space-around'} mt={5}>
               <Grid item xs={12} md={3}>
                 <Typography variant='h4' textAlign={'left'} sx={{ fontWeight: 500 }}>Step 1</Typography>
                 <Card sx={{ backgroundColor: '#018A44', borderRadius: '30px', marginTop: 2, textAlign: 'center' }}>
@@ -111,9 +107,9 @@ function Home() {
             </Grid>
           </Container>
         </Box>
-        
-      </Box>
     </ThemeProvider>
+    </div>
+    
   )
 }
 

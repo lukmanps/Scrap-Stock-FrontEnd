@@ -13,11 +13,13 @@ import {
     Select,
     MenuItem,
     InputLabel,
-    InputAdornment
+    InputAdornment,
+    ThemeProvider
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { addMaterial } from '../../APIs/submitData/submitAPI';
 import axios from '../../../../config/axios';
+import GlobalTheme from '../../../../Theme/GlobalTheme';
 
 
 
@@ -61,6 +63,7 @@ const AddMaterialModal = ({ open, onClose, onAddProduct }) => {
     };
 
     return (
+        <ThemeProvider theme={GlobalTheme}>
         <Box sx={{ backgroundColor: '#1E1E1E' }}>
             <Toaster />
             <Dialog open={open} onClose={onClose} PaperProps={{
@@ -84,6 +87,7 @@ const AddMaterialModal = ({ open, onClose, onAddProduct }) => {
                                 label="Category"
                                 onChange={handleChange}
                             >
+                                <em>None</em>
                                 <MenuItem value='Plastic'>Plastic</MenuItem>
                                 <MenuItem value='Paper'>Paper</MenuItem>
                                 <MenuItem value='Metal'>Metal</MenuItem>
@@ -144,7 +148,7 @@ const AddMaterialModal = ({ open, onClose, onAddProduct }) => {
                 </form>
             </Dialog>
         </Box>
-
+        </ThemeProvider>
     );
 };
 
