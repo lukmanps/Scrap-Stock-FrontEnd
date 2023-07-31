@@ -42,6 +42,7 @@ export default function Pickups() {
   React.useEffect(() => {
     getPickupList()
       .then((response) => {
+        console.log(response, ' :: Pickup List');
         setPickups(response);
       });
   }, []);

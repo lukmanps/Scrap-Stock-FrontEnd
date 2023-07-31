@@ -91,10 +91,9 @@ const SelectItems = (props) => {
                   </Typography>
                   <Typography variant='body1'>{scrapItem.price}</Typography>
                 </CardContent>
-                <CardActions sx={{ justifyContent: 'space-between' }}>
+                <CardActions sx={{justifyContent: 'space-between'}}>
                   <Checkbox
-                    name={scrapItem.scrap}
-                    id={scrapItem._id}
+                    name={scrapItem._id}
                     onChange={handleCheckBoxChange}
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={<CheckCircleIcon />}
@@ -105,10 +104,10 @@ const SelectItems = (props) => {
                     label='Qty'
                     value={textFieldValue[index]}
                     onChange={(event) => handleTextfield(index, event.target.value)}
-                    sx={{ width: '7rem' }}
+                    sx={{width: '7rem'}}
                     InputProps={{
                       startAdornment: <InputAdornment position="start">kg</InputAdornment>,
-                    }} />
+                  }} />
                 </CardActions>
               </Card>
             </Grid>

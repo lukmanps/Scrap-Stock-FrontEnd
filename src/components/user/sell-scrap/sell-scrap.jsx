@@ -117,9 +117,6 @@ const SellScrap = () => {
     }
   }
 
-
-
-
   return (
     <ThemeProvider theme={GlobalTheme}>
       <Box sx={{ width: '100%' }}>

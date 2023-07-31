@@ -43,14 +43,9 @@ function Home() {
               </Grid>
             </Grid>
 
-        <Box padding={5}>
+        <Grid container justifyContent={'center'}>
           <Button variant='contained' size='large' sx={{ fontSize: '1.5rem', fontWeight: 500 }} onClick={handleSellScrap}>Sell Scrap</Button>
-        </Box>
-
-
-            <Grid container justifyContent={'center'}>
-            <Button variant='contained' size='large' sx={{ fontSize: '1.5rem', fontWeight: 500 }}>Sell Scrap</Button>
-            </Grid>
+        </Grid>
 
             <Grid container spacing={12} alignContent={'center'} alignItems={'center'} justifyContent={'center'}>
               <Grid item xs={12} md={4} >

@@ -16,10 +16,6 @@ const GlobalTheme = createTheme({
             // Dark Gray as Background.
             main: '#1b1b1b'
         },
-
-        background: {
-            main: '#1b1b1b'
-        }
     },
 
     //Typography
@@ -78,50 +74,50 @@ const GlobalTheme = createTheme({
         },
         MuiFilledInput: {
             styleOverrides: {
-              root: {
-                '&:before, &:after': {
-                  borderBottom: '2px solid var(--TextField-brandBorderColor)',
+                root: {
+                    '&:before, &:after': {
+                        borderBottom: '2px solid var(--TextField-brandBorderColor)',
+                    },
+                    '&:hover:not(.Mui-disabled, .Mui-error):before': {
+                        borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
+                    },
+                    '&.Mui-focused:after': {
+                        borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
+                    },
                 },
-                '&:hover:not(.Mui-disabled, .Mui-error):before': {
-                  borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-                },
-                '&.Mui-focused:after': {
-                  borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-                },
-              },
             },
-          },
-          MuiInput: {
+        },
+        MuiInput: {
             styleOverrides: {
-              input: {
-                '&:before': {
-                  borderBottom: '2px solid var(--TextField-brandBorderColor)',
+                input: {
+                    '&:before': {
+                        borderBottom: '2px solid var(--TextField-brandBorderColor)',
+                    },
+                    '&:hover:not(.Mui-disabled, .Mui-error):before': {
+                        borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
+                    },
+                    '&.Mui-focused:after': {
+                        borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
+                    },
                 },
-                '&:hover:not(.Mui-disabled, .Mui-error):before': {
-                  borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
-                },
-                '&.Mui-focused:after': {
-                  borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
-                },
-              },
             },
-          },
-            MuiInputLabel: {
-                styleOverrides: {
-                    root: {
-                        color: 'white'
-                    }
-                }
-            },
-            MuiInputBase: {
-                styleOverrides: {
-                    root: {
-                        color: 'white'
-                    }
+        },
+        MuiInputLabel: {
+            styleOverrides: {
+                root: {
+                    color: 'white'
                 }
             }
         },
-    });
+        MuiInputBase: {
+            styleOverrides: {
+                root: {
+                    color: 'white'
+                }
+            }
+        }
+    },
+});
 
 
 export default GlobalTheme;  

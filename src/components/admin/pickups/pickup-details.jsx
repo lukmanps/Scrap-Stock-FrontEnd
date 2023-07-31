@@ -19,20 +19,23 @@ import axios from '../../../config/axios';
 
 const PickupDetails = () => {
     const { id } = useParams();
+    console.log(id, " :: Pickup ID in pickup Details");
     const [data, setData] = useState('');
-    const [status, setStatus] = useState('Pending');
+    const [status, setStatus] = useState('');
 
     useEffect(() => {
-        axios.get('/admin/pickup-details?id=' + id)
+        axios.get('/admin/pickup-details?id='+id)
             .then((response) => {
+                console.log(response?.data, " :: Data of Pickup Details");
                 setData(response?.data);
             })
             .catch((err) => {
                 console.log(err, " : AXIOS ERROR");
             })
-    }, [status])
+    }, [status]);
 
     const handleStatus = (value) => {
+        console.log(value, ' :: status update');
         axios.patch(`/admin/pickup-details?id=${id}`, { value })
             .then((response) => {
                 setStatus(value)
