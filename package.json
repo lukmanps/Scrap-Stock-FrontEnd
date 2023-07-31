@@ -16,15 +16,19 @@
     "@heroicons/react": "^2.0.18",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.6",
+    "@mui/styled-engine-sc": "^5.12.0",
+    "@mui/x-date-pickers": "^6.10.2",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
+    "dayjs": "^1.11.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.1",
     "react-hot-toast": "^2.4.1",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.1",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "styled-components": "^5.3.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

@@ -10,17 +10,21 @@ import {
   Typography,
   Checkbox,
   ThemeProvider,
+  InputAdornment,
+  TextField,
 } from '@mui/material';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import toast, { Toaster } from 'react-hot-toast';
 import GlobalTheme from '../../../../Theme/GlobalTheme';
+import AdminTheme from '../../../../Theme/AdminTheme';
 import axios from '../../../../config/axios';
 
 const SelectItems = (props) => {
-  const {selectedData } = props;
+  const { selectedData } = props;
   const [selectedItems, setSelectedItems] = useState({});
   const [scrap, setScrap] = useState([]);
+  const [textFieldValue, setTextFieldValue] = useState(Array(scrap.length).fill(''));
 
   const handleCheckBoxChange = (event) => {
     const { name, checked } = event.target;
@@ -31,8 +35,21 @@ const SelectItems = (props) => {
     }));
   };
 
+  const handleTextfield = (index, value) => {
+    setTextFieldValue((prevValues) => {
+      const newValues = [...prevValues];
+      newValues[index] = value;
+      return newValues;
+    });
+  };
+
   const handleNext = () => {
-    const data = Object.keys(selectedItems).filter(key => selectedItems[key]);
+    const data = Object.keys(selectedItems)
+      .filter(key => selectedItems[key])
+      .map(key => ({
+        item: key,
+        quantity: textFieldValue[scrap.findIndex(item => item._id === key)] || 0,
+      }));
 
     if (data.length === 0) {
       toast.error('Select scraps that you would like to sell!');
@@ -53,7 +70,7 @@ const SelectItems = (props) => {
   }, [])
 
   return (
-    <ThemeProvider theme={GlobalTheme}>
+    <ThemeProvider theme={AdminTheme}>
       <Container maxWidth='xl'>
         <Toaster />
         <Grid container sx={{ marginBottom: '2rem' }}>
@@ -65,7 +82,7 @@ const SelectItems = (props) => {
         <Box sx={{ mt: '1rem' }}><Typography variant='h5'>Paper</Typography></Box>
 
         <Grid container spacing={2}>
-          {scrap.map((scrapItem) => (
+          {scrap.map((scrapItem, index) => (
             <Grid item xs={5} md={3} lg={2} width={'25rem'} key={scrapItem.scrap}>
               <Card sx={{ borderRadius: '15px' }}>
                 <CardContent>
@@ -74,13 +91,23 @@ const SelectItems = (props) => {
                   </Typography>
                   <Typography variant='body1'>{scrapItem.price}</Typography>
                 </CardContent>
-                <CardActions>
+                <CardActions sx={{justifyContent: 'space-between'}}>
                   <Checkbox
-                    name={scrapItem.scrap}
+                    name={scrapItem._id}
                     onChange={handleCheckBoxChange}
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={<CheckCircleIcon />}
                   />
+                  <TextField
+                    type='text'
+                    size='small'
+                    label='Qty'
+                    value={textFieldValue[index]}
+                    onChange={(event) => handleTextfield(index, event.target.value)}
+                    sx={{width: '7rem'}}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">kg</InputAdornment>,
+                  }} />
                 </CardActions>
               </Card>
             </Grid>

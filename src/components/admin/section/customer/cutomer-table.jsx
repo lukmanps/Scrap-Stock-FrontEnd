@@ -17,14 +17,17 @@ import {
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import axios from '../../../../config/axios';
 // import { Scrollbar } from 'src/components/scrollbar';
 // import { getInitials } from 'src/utils/get-initials';
 
 export const CustomersTable = (props) => {
+  // const [page, setPage] = React.useState(0);
+  // const [rowsPerPage, setRowsPerPage] = React.useState(5);
   let [status, setStatus] = useState(false);
 
   const {
-    count = 0,
+    count,
     items = [],
     onPageChange = () => { },
     onRowsPerPageChange,
@@ -34,13 +37,21 @@ export const CustomersTable = (props) => {
     fetchUserData
   } = props;
 
-  const changeUserStatus = () => {
+  const changeUserStatus = (userId, {isBlocked}) => {
+    console.log("chagen user stausdlkjdf cajfoio=");
     axios.patch('/admin/change-status?id=' + userId)
       .then((response) => {
         status = !status
         setStatus(status);
-        toast.success('Customer Blocked');
-        fetchUserData();
+        if(isBlocked === true){
+          toast.error('Customer Blocked');
+          fetchUserData();
+        } else {
+          toast.success('Customer Unblocked');
+          fetchUserData();
+        }
+        
+        
       })
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);
@@ -81,7 +92,7 @@ export const CustomersTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((customer) => {
+            {items.map((customer, index) => {
 
               return (
                 <TableRow
@@ -89,7 +100,7 @@ export const CustomersTable = (props) => {
                   key={customer.id}
                 >
                   <TableCell padding="checkbox">
-                    1
+                    {index+1}
                   </TableCell>
                   <TableCell padding="checkbox">
                     <Avatar alt={customer.username} src="/static/images/avatar/2.jpg" />
@@ -117,8 +128,8 @@ export const CustomersTable = (props) => {
                   </TableCell>
                   <TableCell>
                     {(customer.status === false) ?
-                      <Button variant='contained' color='success' onClick={() => changeUserStatus(customer._id)} >Unblock </Button> :
-                      <Button variant={'contained'} color={'error'} onClick={() => changeUserStatus(customer._id)}>Block</Button>}
+                      <Button variant='contained' color='success' onClick={() => changeUserStatus(customer._id, {isBlocked: false})} >Unblock </Button> :
+                      <Button variant={'contained'} color={'error'} onClick={() => changeUserStatus(customer._id, {isBlocked: true})}>Block</Button>}
 
                   </TableCell>
                   <TableCell>

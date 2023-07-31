@@ -5,10 +5,10 @@ const submitPickupSchedule = (data) =>{
     return new Promise((resolve, reject) => {
         axios.post('/sell-scrap', data)
         .then((response) => {
-            resolve(response);
+            resolve(response?.data);
         })
         .catch((err) => {
-            reject(err);
+            console.log(err, " :AXIOS Error")
         })
     })
 }

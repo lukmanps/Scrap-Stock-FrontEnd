@@ -25,6 +25,8 @@ import AdminDashboard from './pages/admin/AdminDashboardPage';
 import ViewUserPage from './pages/admin/ViewUserPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import ScrapManagement from './pages/admin/ScrapManagementPage';
+import PickupDetailsPage from './pages/admin/PickupDetailsPage';
+import PaymentSuccess from './Common/payment-success';
 
 //Redux State
 import { isAdmin } from './Redux/admin/AdminInfoReducer';
@@ -66,8 +68,11 @@ function App() {
             <Route path='view-user/:id' element={<ViewUserPage/>} />
             <Route path='scrap-management' element={<ScrapManagement/>} />
             <Route path='pickups' element={<PickupsPage/>} />
+            <Route path='pickup-details/:id' element={<PickupDetailsPage/>} />
           </Route>
           {/* <Route path='*' element={<PageNotFound/>}/> */}
+
+          <Route path='/admin/payment-success' element={<PaymentSuccess/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

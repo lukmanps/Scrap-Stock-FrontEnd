@@ -54,7 +54,7 @@ const ScrapManagement = () => {
           py: 8
         }}
       >
-        <Container >
+        <Container>
           <Stack spacing={3}>
             <Stack
               direction="row"

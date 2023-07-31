@@ -37,13 +37,17 @@ export default function UserCard() {
     }, [])
 
     const card = (
-        <React.Fragment>
+          <Box mt={4}>
+          <Box>
+          <Typography variant='h4' fontWeight={600}>Customer Details</Typography>
+          </Box>
+          <Card>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              {user._id}
+             Customer ID: {user._id}
             </Typography>
             <Typography variant="h5" component="div"  sx={{ mb: 1.5 }}>
-              {user.username}
+             Name: {user.username}
             </Typography>
             
             <Typography variant="body2">Email: {user.email}</Typography>
@@ -51,8 +55,8 @@ export default function UserCard() {
             <Typography variant="body2">Status: {user.status ? 'Unblocked' : 'Blocked'}</Typography>
             <Typography variant="body2">Wallet: {user.wallet}</Typography>
           </CardContent>
-          
-        </React.Fragment>
+          </Card>
+          </Box>
       );
     
   return (

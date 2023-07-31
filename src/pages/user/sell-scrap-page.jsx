@@ -6,7 +6,7 @@ import SellScrap from '../../components/user/sell-scrap/sell-scrap';
 const SellScrapPage = () => {
 
   return (
-    <div>
+    <div id='user-body'>
       <SellScrap/>
     </div>
   )
