@@ -61,18 +61,18 @@ export default function Login() {
 
   return (
     <ThemeProvider theme={GlobalTheme}>
-      <Grid container alignItems={'center'} justifyContent={'center'} spacing={2} sx={{ display: 'flex', flexDirection: 'row', p: '5' }}>
+      <Grid container alignItems={'center'} justifyContent={'center'}>
 
-        <Grid item xs={12} sm={6}>
-          <Box sx={{ display: { lg: 'flex' }, pt: 5, mt: 3, textAlign: 'center' }}>
+        <Grid container xs={12} sm={6} justifyContent={'center'}>
+          <Grid item sx={{ pt: 5, mt: 3, textAlign: 'center' }}>
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
-              {/* <Box flexDirection={'column'}>
-
-            </Box> */}
-              <Typography variant='h4' sx={{ fontWeight: 600 }}>Welcome Back!</Typography>
-              <Typography variant='body1' mb={3}>Don't Have an Account?<NavLink to='/signup' color='#018A44'> Register </NavLink> </Typography>
-
+              <Grid>
+                <Typography variant='h4' sx={{ fontWeight: 600 }}>Welcome Back!</Typography>
+                <Typography variant='body1' mb={3}>Don't Have an Account?<NavLink to='/signup' color='#018A44'> Register </NavLink> </Typography>
+              </Grid>
+              
               <TextField
+                fullWidth
                 type='email'
                 label='Email'
                 variant='outlined'
@@ -86,9 +86,10 @@ export default function Login() {
                 })
                 }
                 error={Boolean(errors.email)}
-                helperText={errors.email ? errors.email.message : ''} />
+                helperText={errors.email ? errors.email.message : ''} /> <br/>
 
               <TextField
+                fullWidth
                 type='password'
                 label='Password'
                 variant='outlined'
@@ -100,8 +101,8 @@ export default function Login() {
                 helperText={errors.password ? errors.password.message : ''} />
 
 
-                {error ? ( <div><Typography variant='body2' color={'error'}>{error}</Typography></div>) : ''}
-                
+              {error ? (<div><Typography variant='body2' color={'error'}>{error}</Typography></div>) : ''}
+
 
               <Box mt={3} mb={2}>
                 <CommonButton type={'submit'} variant={'contained'} sx={{ px: 6 }}>Login</CommonButton>
@@ -113,13 +114,12 @@ export default function Login() {
                 <CommonButton variant={'outlined'} color={'secondary'} sx={{ px: 6 }}>Signin with Google</CommonButton>
               </Box> */}
             </form>
-          </Box>
+          </Grid>
         </Grid>
 
         <Grid item xs={12} md={6} marginTop={5}>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <img src='src\assets\signuppage.png' alt='Signup Page Vector' width={'100%'} />
-
           </Box>
         </Grid>
       </Grid>

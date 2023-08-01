@@ -16,11 +16,11 @@ export const MaterialCard = (props) => {
         height: '100%'
       }}
     >
-      <CardMedia
+      {/* <CardMedia
         sx={{ height: 150}}
         image="https://images.pexels.com/photos/276267/pexels-photo-276267.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
         title="SCRAP STOCK"
-      />
+      /> */}
       <CardContent>
         {/* <Box
           sx={{
@@ -45,6 +45,13 @@ export const MaterialCard = (props) => {
           align="left"
           variant="body1"
         >
+        </Typography>
+        <Typography
+          align="left"
+          gutterBottom
+          variant="caption"
+        >Category:  
+          {scrap.category}
         </Typography>
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />

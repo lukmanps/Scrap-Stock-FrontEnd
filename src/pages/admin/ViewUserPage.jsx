@@ -3,7 +3,7 @@ import UserCard from '../../components/admin/customer-management/ViewUser'
 
 const ViewUserPage = () => {
   return (
-    <div>
+    <div style={{width:'100%',height:'100vh'}}>
         <UserCard/>
     </div>
   )

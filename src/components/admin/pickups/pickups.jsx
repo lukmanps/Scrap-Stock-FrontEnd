@@ -75,7 +75,7 @@ export default function Pickups() {
                         {index + 1}
                       </TableCell>
                       <TableCell align='left'>
-                        27/07/2023 {/* Hardcoded date, consider using 'pickup.date' */}
+                        {pickup.date} {/* Hardcoded date, consider using 'pickup.date' */}
                       </TableCell>
                       <TableCell align='left'>
                         {pickup.formData.name}

@@ -110,7 +110,7 @@ const CustomerManagement = () => {
               </Stack>
               
             </Stack>
-            <CustomersSearch />
+            {/* <CustomersSearch /> */}
             <CustomersTable
               count={users.length}
               items={users}

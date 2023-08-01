@@ -89,7 +89,7 @@ const SelectItems = (props) => {
                   <Typography variant='h5' align='left'>
                     {scrapItem.scrap}
                   </Typography>
-                  <Typography variant='body1'>{scrapItem.price}</Typography>
+                  <Typography variant='body1'>&#8377; {scrapItem.price} /kg</Typography>
                 </CardContent>
                 <CardActions sx={{justifyContent: 'space-between'}}>
                   <Checkbox

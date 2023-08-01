@@ -17,6 +17,7 @@ import UserSignUp from './pages/user/user-signup-page';
 import UserLogin from './pages/user/user-login-page';
 import Home from './pages/user/home-page';
 import SellScrapPage from './pages/user/sell-scrap-page';
+import CheckPriceListPage from './pages/user/check-price-page';
 
 //Admin Pages
 import AdminLogin from './pages/admin/AdminLoginPage';
@@ -63,6 +64,7 @@ function App() {
           <Route path='/signup' element={user ? <Navigate to={'/'} replace={true} /> : <UserSignUp />} />
           
           <Route path='/' element={<Home/>} />
+          <Route path='/check-price-list' element={<CheckPriceListPage/>} />
 
           <Route path='/' element={user ? <UserLayout /> : <Navigate to={'/login'} replace={true}/>}>
             <Route path='/sell-scrap' element={<SellScrapPage/>} />
@@ -90,3 +92,8 @@ function App() {
 }
 
 export default App;
+
+
+
+
+

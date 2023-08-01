@@ -92,7 +92,7 @@ const ScrapManagement = () => {
 
               </div>
             </Stack>
-            <MaterialSearch />
+            {/* <MaterialSearch /> */}
             <Grid
               container
               spacing={3}
@@ -114,10 +114,10 @@ const ScrapManagement = () => {
                 justifyContent: 'center'
               }}
             >
-              <Pagination
+              {/* <Pagination
                 count={3}
                 size="small"
-              />
+              /> */}
             </Box>
           </Stack>
         </Container>

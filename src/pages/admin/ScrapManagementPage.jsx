@@ -3,7 +3,7 @@ import ScrapManagement from '../../components/admin/scrap-management/scrap-manag
 
 const ScrapManagementPage = () => {
   return (
-    <div>
+    <div style={{width:'100%',height:'100vh'}}>
       <ScrapManagement/>
     </div>
   )

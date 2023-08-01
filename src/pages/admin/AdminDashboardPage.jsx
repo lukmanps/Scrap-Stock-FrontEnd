@@ -4,7 +4,7 @@ import AdminDashboard from '../../components/admin/adminDashboard';
 
 const AdminDashboardPage = () => {
   return (
-    <div>
+    <div style={{width:'100%',height:'100vh'}}>
       <AdminDashboard/>
     </div>
   )

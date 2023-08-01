@@ -3,10 +3,10 @@ import PickupDetails from '../../components/admin/pickups/pickup-details';
 
 const PickupDetailsPage = () => {
   return (
-    <div>
+    <div style={{width:'100%',height:'auto'}}>
         <PickupDetails/>
     </div>
   )
-}
+} 
 
 export default PickupDetailsPage

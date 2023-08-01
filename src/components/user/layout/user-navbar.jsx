@@ -63,6 +63,10 @@ function UserNavBar({ button, link }) {
     }
   }
 
+  const handleCheckPricePage = () => {
+    navigate('/check-price-list')
+  }
+
   return (
     <AppBar position="fixed" color="bg" sx={{marginBottom:'5rem'}}>
       <Container maxWidth="xl" >
@@ -145,7 +149,7 @@ function UserNavBar({ button, link }) {
           </Typography>
 
           <Box sx={{ marginLeft: 'auto', display: { xs: 'none', md: 'flex' } }}>
-            <CommonButton variant='outlined' color='secondary'>
+            <CommonButton variant='outlined' color='secondary' onClick={handleCheckPricePage}>
               Check Price List
             </CommonButton>
           </Box>
