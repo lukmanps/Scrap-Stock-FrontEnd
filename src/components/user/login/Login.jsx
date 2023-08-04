@@ -11,6 +11,9 @@ import { useForm } from 'react-hook-form';
 import GlobalTheme from '../../../Theme/GlobalTheme';
 import { CommonButton } from '../../../Common/CommonButton';
 
+import handleLogin from '../../../APIs/user/loginAPI';
+import { toast, Toaster }  from 'react-hot-toast';
+
 
 
 export default function Login() {
@@ -18,49 +21,30 @@ export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
-  const authUser = useSelector((state) => {
-    return state.auth;
-  });
-
-  const userInfo = useSelector((state) => {
-    return state.userInfo
-  })
-
-  console.log(authUser, " : LOGIN AUTH STATUS");
-  console.log(userInfo, " :USER INFORMATION");
-
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   let loginErr = '';
 
   const onSubmit = (loginData, event) => {
     event.preventDefault();
-    console.log(loginData, "Data in Login");
-    axios
-      .post('/login', loginData)
-      .then((response) => {
-        if (response.data.status === false) {
-          console.log(response.data?.message, ': RESPONSE');
-          //Show error message to user
-          // loginErr = response.data?.message;
-          setError(response.data?.message);
-          console.log(loginErr, ': LOGin errr');
-        } else {
-          localStorage.setItem('userData', response.data?.accessToken);
-          console.log(response.data?.userData)
-          dispatch(isUser(response.data?.accessToken));
-          dispatch(addUserInfo(response.data?.userData));
-          navigate('/');
-        }
-      })
-      .catch((err) => {
-        console.log('AXIOS ERROR: ', err);
-      })
+    
+    handleLogin(loginData)
+    .then((response) => {
+      if(response?.status){
+        dispatch((isUser(response?.token)));
+        dispatch((addUserInfo(response?.userData)))
+      }
+    })
+    .catch((err) => {
+      setError(err);
+      toast.error(err);
+    })
 
   };
 
   return (
     <ThemeProvider theme={GlobalTheme}>
+      <Toaster/>
       <Grid container alignItems={'center'} justifyContent={'center'}>
 
         <Grid container xs={12} sm={6} justifyContent={'center'}>

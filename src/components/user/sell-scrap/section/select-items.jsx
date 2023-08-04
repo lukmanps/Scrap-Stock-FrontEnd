@@ -18,7 +18,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import toast, { Toaster } from 'react-hot-toast';
 import GlobalTheme from '../../../../Theme/GlobalTheme';
 import AdminTheme from '../../../../Theme/AdminTheme';
-import axios from '../../../../config/axios';
+import fetchScrapItems from '../../../../APIs/user/fetchScraps';
 
 const SelectItems = (props) => {
   const { selectedData } = props;
@@ -59,14 +59,13 @@ const SelectItems = (props) => {
   }
 
   useEffect(() => {
-    axios.get('/scrap-management')
-      .then((response) => {
-        console.log(response.data, ": scrap materials")
-        setScrap(response.data);
-      })
-      .catch((err) => {
-        console.log(err, " : AXIOS Error");
-      })
+    fetchScrapItems()
+    .then((response) => {
+      setScrap(response);
+    })
+    .catch((err) => {
+      toast.error(err.message);
+    })
   }, [])
 
   return (

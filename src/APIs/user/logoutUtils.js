@@ -10,12 +10,14 @@ const handleLogout = () => {
   const dispatch = useDispatch();
 
   const performLogout = () => {
-    localStorage.removeItem('userData');
+    localStorage.removeItem('userToken');
     dispatch(clearUserInfo());
     dispatch(logout());
   };
 
   return performLogout;
 };
+
+console.log(localStorage.getItem('userToken'), " ::USER TOKEN in local storage");
 
 export default handleLogout;
