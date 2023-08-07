@@ -6,10 +6,12 @@ import { CommonButton } from '../../Common/CommonButton';
 import { Margin } from '@mui/icons-material';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Review from '../../components/user/reviews/review';
+import ReviewForm from '../../components/user/reviews/review-form';
 
 function Home() {
   const navigate = useNavigate();
-  const userData = useSelector((state)=> state.userInfo);
+  const userData = useSelector((state) => state.userInfo);
 
   const handleSellScrap = () => {
     navigate('/sell-scrap');
@@ -18,7 +20,7 @@ function Home() {
   return (
     <div id='user-body'>
       <ThemeProvider theme={GlobalTheme}>
-      <UserNavBar button={'Login'} link={'login'}/>
+        <UserNavBar button={'Login'} link={'login'} />
         <Box>
           <Container maxWidth='xl' margintop={1}>
 
@@ -43,9 +45,9 @@ function Home() {
               </Grid>
             </Grid>
 
-        <Grid container justifyContent={'center'}>
-          <Button variant='contained' size='large' sx={{ fontSize: '1.5rem', fontWeight: 500 }} onClick={handleSellScrap}>Sell Scrap</Button>
-        </Grid>
+            <Grid container justifyContent={'center'}>
+              <Button variant='contained' size='large' sx={{ fontSize: '1.5rem', fontWeight: 500 }} onClick={handleSellScrap}>Sell Scrap</Button>
+            </Grid>
 
             <Grid container spacing={12} alignContent={'center'} alignItems={'center'} justifyContent={'center'}>
               <Grid item xs={12} md={4} >
@@ -58,7 +60,7 @@ function Home() {
 
             </Grid>
 
-            <Grid container spacing={3}justifyContent={'space-around'} mt={5}>
+            <Grid container spacing={3} justifyContent={'space-around'} mt={5}>
               <Grid item xs={12} md={3}>
                 <Typography variant='h4' textAlign={'left'} sx={{ fontWeight: 500 }}>Step 1</Typography>
                 <Card sx={{ backgroundColor: '#018A44', borderRadius: '30px', marginTop: 2, textAlign: 'center' }}>
@@ -98,13 +100,23 @@ function Home() {
                 <Typography variant='h5' textAlign={'left'} sx={{ fontWeight: 500, marginTop: 2, marginBottom: 1 }}>Receive Payment</Typography>
                 <Typography variant='body2' textAlign={'left'}>Receive payment in any one of the three payment modes via Wallet</Typography>
               </Grid>
-
             </Grid>
+
+            <Grid container sx={{ justifyContent: 'center'}} mt={5}>
+              <Grid item>
+                <Review />
+              </Grid>
+            </Grid>
+
+              <Grid container>
+                <ReviewForm/>
+              </Grid>
+
           </Container>
         </Box>
-    </ThemeProvider>
+      </ThemeProvider>
     </div>
-    
+
   )
 }
 
