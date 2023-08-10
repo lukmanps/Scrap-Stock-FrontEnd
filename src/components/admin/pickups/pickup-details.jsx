@@ -10,6 +10,7 @@ import {
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import AdminTheme from '../../../Theme/AdminTheme';
+import CircularProgress from '@mui/material/CircularProgress';
 import PickupUserInfo from './sections/user-info';
 import PickupStatus from './sections/status';
 import ScrapItems from './sections/scrap-items';
@@ -19,31 +20,24 @@ import axios from '../../../config/axios';
 
 const PickupDetails = () => {
     const { id } = useParams();
-    console.log(id, " :: Pickup ID in pickup Details");
     const [data, setData] = useState('');
     const [status, setStatus] = useState('');
+
+    const handleStatus = (value) => {
+        setStatus(value);
+        console.log(value, " :: Vaue kin handleStatus");
+    }
 
     useEffect(() => {
         axios.get('/admin/pickup-details?id='+id)
             .then((response) => {
-                console.log(response?.data, " :: Data of Pickup Details");
                 setData(response?.data);
             })
             .catch((err) => {
                 console.log(err, " : AXIOS ERROR");
             })
     }, [status]);
-
-    const handleStatus = (value) => {
-        console.log(value, ' :: status update');
-        axios.patch(`/admin/pickup-details?id=${id}`, { value })
-            .then((response) => {
-                setStatus(value)
-            })
-            .catch((err) => {
-                console.log(err, " :AXIOS ERROR");
-            })
-    }
+    
     return (
         <ThemeProvider theme={AdminTheme}>
             <Box component="main"
@@ -76,7 +70,7 @@ const PickupDetails = () => {
                                 <PickupUserInfo data={data} />
                             </Grid>
                             <Grid xs={12} md={4}>
-                                <PickupStatus status={data?.status} handleStatus={handleStatus} />
+                                <PickupStatus status={data?.status} handleStatus={handleStatus} pickupId={data?._id}/>
                             </Grid>
                         </Grid>
                         <Grid container spacing={5}>

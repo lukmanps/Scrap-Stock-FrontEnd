@@ -13,9 +13,10 @@ import {
 } from '@mui/material'
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import axios from '../../../../config/axios'
 
 const PickupStatus = (props) => {
-  const { handleStatus, status } = props;
+  const { handleStatus, status, pickupId } = props;
   const [value, setValue] = React.useState('');
 
   const handleChange = (event) => {
@@ -23,17 +24,28 @@ const PickupStatus = (props) => {
   };
 
   const handleUpdate = () => {
-    if(value === 'Pickedup'){
+    if (value === 'Pickedup') {
       toast.success('Scrap Pickedup');
-      handleStatus(value);
-    } else if(value === 'Scheduled'){
+      updateStatus(value);
+    } else if (value === 'Scheduled') {
       toast.success('Scrap Pickup Scheduled');
-      handleStatus(value);
-    } else if(value === 'Cancelled'){
+      updateStatus(value);
+    } else if (value === 'Cancelled') {
       toast.error('Scrap Pickup Rejected');
-      handleStatus(value);
-    } 
- 
+      updateStatus(value);
+    }
+
+  }
+
+  const updateStatus = (value) => {
+    axios.patch(`/admin/pickup-details?id=${pickupId}`, { value })
+      .then((response) => {
+        console.log(response);
+        handleStatus(value);
+      })
+      .catch((err) => {
+        console.log(err, " :AXIOS ERROR");
+      })
   }
 
   return (
@@ -78,7 +90,7 @@ const PickupStatus = (props) => {
                   <FormControlLabel value="Pickedup" control={<Radio />} label="Pickup" />
                 </>
               )}
-              
+
             </RadioGroup>
           </FormControl>
         </CardActions>

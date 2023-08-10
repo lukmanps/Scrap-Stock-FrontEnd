@@ -11,7 +11,7 @@ import { CustomersTable } from '../section/customer/cutomer-table';
 import { CustomersSearch } from '../section/customer/customer-search';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import AdminTheme from '../../../Theme/AdminTheme';
-import axios from '../../../config/axios';
+import axios, { setAccessToken } from '../../../config/axios';
 // import { applyPagination } from 'src/utils/apply-pagination';
 
 const now = new Date();
@@ -75,6 +75,7 @@ const CustomerManagement = () => {
   }
 
   React.useEffect(() => {
+    setAccessToken('admin');
     fetchUserData()
   }, []);
 

@@ -43,11 +43,6 @@ const SellScrap = () => {
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     const newActiveStep = activeStep + 1;
-    // isLastStep() && !allStepsCompleted()
-    //   ? // It's the last step, but not all steps have been completed,
-    //   // find the first step that has been completed
-    //   steps.findIndex((step, i) => !(i in completed))
-    //   : 
     setActiveStep(newActiveStep);
   };
 
@@ -59,12 +54,6 @@ const SellScrap = () => {
     setActiveStep(step);
   };
 
-  const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
-  };
 
   const handleReset = () => {
     setActiveStep(0);
@@ -88,8 +77,6 @@ const SellScrap = () => {
       handleNext();
     }
   }
-
-  console.log(formData, " ::FORM DATA received")
   const handleTimeSlot = (date, time) => {
     setTimeSlot({
       date: date,

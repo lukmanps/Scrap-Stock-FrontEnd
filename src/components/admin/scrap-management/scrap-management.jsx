@@ -36,7 +36,7 @@ const ScrapManagement = () => {
   };
 
   useEffect(()=>{
-    axios.get('/scrap-management')
+    axios.get('/admin/scrap-management')
     .then((response)=>{
       console.log(response.data ,": scrap materials")
       setScrap(response.data)

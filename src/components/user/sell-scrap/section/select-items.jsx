@@ -19,12 +19,16 @@ import toast, { Toaster } from 'react-hot-toast';
 import GlobalTheme from '../../../../Theme/GlobalTheme';
 import AdminTheme from '../../../../Theme/AdminTheme';
 import fetchScrapItems from '../../../../APIs/user/fetchScraps';
+import { useNavigate } from 'react-router-dom';
+import handleLogout from '../../../../APIs/user/logoutUtils';
 
 const SelectItems = (props) => {
   const { selectedData } = props;
   const [selectedItems, setSelectedItems] = useState({});
   const [scrap, setScrap] = useState([]);
+  const navigate = useNavigate();
   const [textFieldValue, setTextFieldValue] = useState(Array(scrap.length).fill(''));
+  
 
   const handleCheckBoxChange = (event) => {
     const { name, checked } = event.target;
@@ -64,14 +68,15 @@ const SelectItems = (props) => {
       setScrap(response);
     })
     .catch((err) => {
-      toast.error(err.message);
+      toast.error(err);
+      navigate('/');
     })
   }, [])
 
   return (
     <ThemeProvider theme={AdminTheme}>
+      <Toaster />
       <Container maxWidth='xl'>
-        <Toaster />
         <Grid container sx={{ marginBottom: '2rem' }}>
           <Grid item>
             <Typography variant='h4'>Select Scrap Items</Typography>

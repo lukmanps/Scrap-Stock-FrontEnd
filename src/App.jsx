@@ -38,7 +38,7 @@ import PickupsPage from './pages/admin/pickupsPage';
 
 function App() {
   const dispatch = useDispatch();
-  const navigate =  useNavigate();
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.authUser);
   const userData = useSelector((state) => state.userInfo);
@@ -47,7 +47,7 @@ function App() {
   const doLogout = handleLogout();
 
   useEffect(() => {
-    if(userData.status === false){
+    if (userData.status === false) {
       doLogout();
       navigate('/');
     }
@@ -58,34 +58,36 @@ function App() {
   return (
     <ThemeProvider theme={GlobalTheme}>
 
-        <Routes>
-          {/* <Route path='/' element={<Home/>}/> */}
-          <Route path='/login' element={user ? <Navigate to={'/'} replace={true} /> : <UserLogin />} />
-          <Route path='/signup' element={user ? <Navigate to={'/'} replace={true} /> : <UserSignUp />} />
-          
-          <Route path='/' element={<Home/>} />
-          <Route path='/check-price-list' element={<CheckPriceListPage/>} />
+      <Routes>
+        {/* <Route path='/' element={<Home/>}/> */}
+        <Route path='/login' element={user ? <Navigate to={'/'} replace={true} /> : <UserLogin />} />
+        <Route path='/signup' element={user ? <Navigate to={'/'} replace={true} /> : <UserSignUp />} />
 
-          <Route path='/' element={user ? <UserLayout /> : <Navigate to={'/login'} replace={true}/>}>
-            <Route path='/sell-scrap' element={<SellScrapPage/>} />
-          </Route>
+        <Route path='/' element={<Home />} />
+        <Route path='/check-price-list' element={<CheckPriceListPage />} />
 
 
 
-          <Route path='/admin/login' element={admin ? <Navigate to={'/admin'} replace={true} /> : <AdminLogin />} />
+        <Route path='/' element={user ? <UserLayout /> : <Navigate to={'/login'} replace={true} />}>
+          <Route path='/sell-scrap' element={<SellScrapPage />} />
+        </Route>
 
-          <Route path='/admin' element={admin ? <AdminLayout /> : <Navigate to={'/admin/login'} replace={true} />} >
-            <Route index  element={<AdminDashboardPage />} />
-            <Route path='user-management' element={<UserManagement/>} />
-            <Route path='view-user/:id' element={<ViewUserPage/>} />
-            <Route path='scrap-management' element={<ScrapManagement/>} />
-            <Route path='pickups' element={<PickupsPage/>} />
-            <Route path='pickup-details/:id' element={<PickupDetailsPage/>} />
-          </Route>
-          {/* <Route path='*' element={<PageNotFound/>}/> */}
 
-          <Route path='/admin/payment-success' element={<PaymentSuccess/>} />
-        </Routes>
+
+        <Route path='/admin/login' element={admin ? <Navigate to={'/admin'} replace={true} /> : <AdminLogin />} />
+
+        <Route path='/admin' element={admin ? <AdminLayout /> : <Navigate to={'/admin/login'} replace={true} />} >
+          <Route index element={<AdminDashboardPage />} />
+          <Route path='user-management' element={<UserManagement />} />
+          <Route path='view-user/:id' element={<ViewUserPage />} />
+          <Route path='scrap-management' element={<ScrapManagement />} />
+          <Route path='pickups' element={<PickupsPage />} />
+          <Route path='pickup-details/:id' element={<PickupDetailsPage />} />
+        </Route>
+        {/* <Route path='*' element={<PageNotFound/>}/> */}
+
+        <Route path='/admin/payment-success' element={<PaymentSuccess />} />
+      </Routes>
 
     </ThemeProvider>
   )

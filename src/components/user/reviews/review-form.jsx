@@ -71,7 +71,7 @@ const ReviewForm = () => {
             <Toaster/>
             <Grid container mt={5} justifyContent={'center'}>
                 <Grid item lg={12}>
-                    <Typography variant='h4' fontWeight={600}>Write a Review!</Typography>
+                    <Typography variant='h5' fontWeight={600}>Write a Review!</Typography>
                 </Grid>
                 <Grid item xs={12} md={12} lg={8}>
                     <Grid item justifyContent={'center'}>

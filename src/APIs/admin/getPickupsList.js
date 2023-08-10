@@ -1,4 +1,5 @@
-import axios from '../../config/axios';
+import axios, {setAccessToken} from '../../config/axios';
+
 
 const getPickupList = () => {
     return new Promise((resolve, reject) => {

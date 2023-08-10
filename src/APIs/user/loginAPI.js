@@ -18,7 +18,7 @@ const handleLogin = (loginData) => {
             })
             .catch((err) => {
                 console.log('AXIOS ERROR: ', err);  
-                reject({message: 'Network error occurred. Please try again later.'});
+                reject({message: 'Something went wrong. Please try again later.'});
             })
     })
 }
