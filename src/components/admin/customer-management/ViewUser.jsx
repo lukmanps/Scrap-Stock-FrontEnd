@@ -53,7 +53,7 @@ export default function UserCard() {
             <Typography variant="body2">Email: {user.email}</Typography>
             <Typography variant="body2">Phone: {user.phoneNo}</Typography>
             <Typography variant="body2">Status: {user.status ? 'Unblocked' : 'Blocked'}</Typography>
-            <Typography variant="body2">Wallet: {user.wallet}</Typography>
+            <Typography variant="body2">Wallet: 	&#8377;{user.wallet}</Typography>
           </CardContent>
           </Card>
           </Box>

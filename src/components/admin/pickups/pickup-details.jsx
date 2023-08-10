@@ -31,6 +31,7 @@ const PickupDetails = () => {
     useEffect(() => {
         axios.get('/admin/pickup-details?id='+id)
             .then((response) => {
+                console.log(response?.data, " :: REsponse Data")
                 setData(response?.data);
             })
             .catch((err) => {
@@ -78,11 +79,12 @@ const PickupDetails = () => {
                                 <ScrapItems pickupId={id}/>
                             </Grid>
                         </Grid>
-                        <Grid container>
+                        {data?.status === 'Pickedup' && (<Grid container>
                             <Grid item xs={12}>
-                                <Payment user={data?.user}/>
+                                <Payment user={data?.user} Payment={data?.totalAmount}/>
                             </Grid>
-                        </Grid>
+                        </Grid>)}
+                        
                     </Stack>
                 </Container>
             </Box>

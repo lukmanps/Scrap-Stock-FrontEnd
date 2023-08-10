@@ -124,7 +124,7 @@ export const CustomersTable = (props) => {
                     {customer.phoneNo}
                   </TableCell>
                   <TableCell>
-                    {customer.wallet}
+                  &#8377;{customer.wallet}
                   </TableCell>
                   <TableCell>
                     {(customer.status === false) ?

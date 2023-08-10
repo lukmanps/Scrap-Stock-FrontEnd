@@ -1,18 +1,18 @@
-import { CardContent, TextField, Box, Card, Button } from '@mui/material';
+import { CardContent, TextField, Box, Card, Button, Typography } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from '../../../../config/axios';
 
 const Payment = (props) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {user} = props;
+    const {user, Payment} = props;
     console.log(user, ' : USer in payment');
 
     const handlePayment = async (amount) => {
         const { data: {key}} = await axios.get('/admin/get-key');
         const { data: {order} } = await axios.post('/admin/payment', amount, user);
         
-        console.log(key, order);
+        console.log(key, order, " :: Data in handle Payment");
         
         const options = {
             key: key, // Enter the Key ID generated from the Dashboard
@@ -23,7 +23,7 @@ const Payment = (props) => {
             // image: "https://example.com/your_logo",
             order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             userId: user,
-            callback_url: "http://localhost:8000/admin/payment-verification",
+            callback_url: `http://localhost:8000/admin/payment-verification?amount=${encodeURIComponent(order.amount)}&userId=${encodeURIComponent(user)}`,
             prefill: {
                 name: "Scrap Stock admin",
                 email: "admin1@scrapstock.com",
@@ -51,6 +51,8 @@ const Payment = (props) => {
                         <TextField
                             type='text'
                             label='Amount'
+                            value={Payment}
+                            variant='outlined'
                             size='small'
                             {...register('amount', {
                                 required: 'Enter the Amount'
