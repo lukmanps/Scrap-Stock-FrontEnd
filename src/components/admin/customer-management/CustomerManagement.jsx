@@ -8,7 +8,7 @@ import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/materia
 // import { useSelection } from 'src/hooks/use-selection';
 // import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { CustomersTable } from '../section/customer/cutomer-table';
-import { CustomersSearch } from '../section/customer/customer-search';
+import CustomersSearch from '../section/customer/customer-search';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import AdminTheme from '../../../Theme/AdminTheme';
 import axios, { setAccessToken } from '../../../config/axios';
@@ -42,6 +42,7 @@ const CustomerManagement = () => {
   // const customersSelection = useSelection(customersIds);
   const [users, setUser] = React.useState([]);
   let [status, setStatus] = React.useState('');
+  const [search, setSearch] = useState('')
   let [remove, setRemove] = React.useState(false);
 
   console.log(users, 'Userss');
@@ -59,6 +60,10 @@ const CustomerManagement = () => {
     },
     []
   );
+
+  const handleSearchCustomer = (value) => {
+    setSearch(value)
+  }
 
   const handleCustomerStatus = (status) => {
     setStatus(status);
@@ -78,6 +83,14 @@ const CustomerManagement = () => {
     setAccessToken('admin');
     fetchUserData()
   }, []);
+
+  let filterCustomer = []
+
+  if(search !== ''){
+    filterCustomer = users.filter(item => item.username.toLowerCase().includes(search.toLowerCase()))
+  } else {
+    filterCustomer = users;
+  }
 
   return (
     <ThemeProvider theme={AdminTheme}>
@@ -111,10 +124,10 @@ const CustomerManagement = () => {
               </Stack>
               
             </Stack>
-            {/* <CustomersSearch /> */}
+            <CustomersSearch setSearch={handleSearchCustomer} search={search}/>
             <CustomersTable
-              count={users.length}
-              items={users}
+              count={filterCustomer.length}
+              items={filterCustomer}
               fetchUserData={fetchUserData}
             />
           </Stack>

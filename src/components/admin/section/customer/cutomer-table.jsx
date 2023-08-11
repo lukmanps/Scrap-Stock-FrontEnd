@@ -141,7 +141,7 @@ export const CustomersTable = (props) => {
           </TableBody>
         </Table>
       </Box>
-      <TablePagination
+      <TablePagination 
         component="div"
         count={count}
         onPageChange={onPageChange}
