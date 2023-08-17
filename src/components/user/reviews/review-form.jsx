@@ -50,26 +50,26 @@ const ReviewForm = () => {
     const handleForm = (data) => {
         const review = data.review;
         console.log(review, ":: Review Text");
-        if(value === 0 || !value || !userId){
+        if (value === 0 || !value || !userId) {
             toast.error('Please add your rating to submit!');
         } else {
-            axios.post('/review', {userId, review, value})
-        .then((response) => {
-            toast.success('Review submitted!')
-            console.log(response?.data, " :: Response fsdfa");
-        })
-        .catch((err) => {
-            toast.error("Review couldn't submit")
-            console.log(err, " :: RESPONSE from adding review")
-        })
+            axios.post('/review', { userId, review, value })
+                .then((response) => {
+                    toast.success('Review submitted!')
+                    console.log(response?.data, " :: Response fsdfa");
+                })
+                .catch((err) => {
+                    toast.error("Review couldn't submit")
+                    console.log(err, " :: RESPONSE from adding review")
+                })
         }
-        
+
     }
 
     return (
         <ThemeProvider theme={GlobalTheme}>
-            <Toaster/>
-            <Grid container mt={5} justifyContent={'center'}>
+            <Toaster />
+            {user && <Grid container mt={5} justifyContent={'center'}>
                 <Grid item lg={12}>
                     <Typography variant='h5' fontWeight={600}>Write a Review!</Typography>
                 </Grid>
@@ -106,7 +106,7 @@ const ReviewForm = () => {
                                     onChangeActive={(event, newHover) => {
                                         setHover(newHover);
                                     }}
-                                    emptyIcon={<StarIcon style={{ opacity: 0.55, color:'grey' }} fontSize="inherit" />}
+                                    emptyIcon={<StarIcon style={{ opacity: 0.55, color: 'grey' }} fontSize="inherit" />}
                                 />
                                 {value !== null && (
                                     <Typography sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Typography>
@@ -120,7 +120,8 @@ const ReviewForm = () => {
                 </Grid>
 
 
-            </Grid>
+            </Grid>}
+
         </ThemeProvider>
     )
 }

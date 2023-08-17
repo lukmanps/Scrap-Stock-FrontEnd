@@ -5,7 +5,6 @@ import {
   Container,
   Grid,
   ThemeProvider,
-
   Stack
 } from '@mui/material';
 import { OverviewTasksProgress } from '../section/dashboard/pickup-stats';
@@ -27,7 +26,8 @@ const AdminDashboard = () => {
       .catch((err) => {
         console.log(err);
       })
-  }, [])
+  }, []);
+  
 
   return (
     <ThemeProvider theme={AdminTheme}>
@@ -93,10 +93,14 @@ const AdminDashboard = () => {
             </Grid>
 
             <Grid
+              item
               xs={12}
               lg={8}
+              mt={3}
+              width={500}
+              height={600}
             >
-              <BasicBars />
+              <BasicBars quantity={dashboard.scrapQty}/>
             </Grid>
           </Grid>
         </Stack>

@@ -81,7 +81,7 @@ const PickupDetails = () => {
                         </Grid>
                         {data?.status === 'Pickedup' && (<Grid container>
                             <Grid item xs={12}>
-                                <Payment user={data?.user} Payment={data?.totalAmount}/>
+                                <Payment user={data?.user} payment={data?.totalAmount}/>
                             </Grid>
                         </Grid>)}
                         

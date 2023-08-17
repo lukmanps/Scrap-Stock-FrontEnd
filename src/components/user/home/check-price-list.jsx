@@ -18,6 +18,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import toast, { Toaster } from 'react-hot-toast';
 import ScrapCard from '../../../Common/scrap-card';
 import AdminTheme from '../../../Theme/AdminTheme';
+import fetchScrapItems from '../../../APIs/user/fetchScraps';
 import axios from '../../../config/axios';
 
 const CheckPriceList = () => {
@@ -26,13 +27,12 @@ const CheckPriceList = () => {
 
 
     useEffect(() => {
-        axios.get('/scrap-management')
+        fetchScrapItems()
             .then((response) => {
-                console.log(response.data, ": scrap materials")
-                setScrap(response.data);
+                setScrap(response);
             })
             .catch((err) => {
-                console.log(err, " : AXIOS Error");
+                toast.error(err);
             })
     }, []);
 

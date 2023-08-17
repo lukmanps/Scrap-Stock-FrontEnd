@@ -13,6 +13,7 @@ import axios from '../../../config/axios';
 import { isUser } from '../../../Redux/user/AuthReducer';
 import { addUserInfo } from '../../../Redux/user/UserInfoReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { signInWithGoogle } from '../../../config/firebase';
 
 
 
@@ -30,6 +31,22 @@ export default function Signup() {
 
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
 
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle()
+    .then((result)=>{
+      if(result.status === false){
+        setError(result?.message);
+      } else {
+        localStorage.setItem('userToken', result?.accessToken);
+        dispatch(isUser(result?.accessToken));
+        dispatch(addUserInfo(result?.userData));
+      }
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+
   const onSubmit = (data => {
     console.log('Form Submitted: ', data);
     axios
@@ -40,11 +57,10 @@ export default function Signup() {
           //Show Error message to user
           setError(response.data?.message);
         } else {
-          localStorage.setItem('userData', response?.data?.accessToken);
+          localStorage.setItem('userToken', response?.data?.accessToken);
           dispatch(isUser(response.data?.accessToken));
           dispatch(addUserInfo(response.data?.userData))
-          navigate('/admin/adminDashboard');
-
+          navigate('/');
         }
       })
       .catch((err) => {
@@ -165,7 +181,7 @@ export default function Signup() {
               </Box>
               <Typography>OR</Typography>
           <Box mt={2}>
-          <CommonButton variant={'outlined'} color={'secondary'} sx={{px: 6}} >Signin with Google</CommonButton>
+          <CommonButton variant={'outlined'} color={'secondary'} sx={{px: 6}} onClick={handleSignInWithGoogle}>Signin with Google</CommonButton>
           </Box>
             </form>
 
