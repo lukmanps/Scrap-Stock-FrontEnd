@@ -80,7 +80,7 @@ const PickupDetails = () => {
                         </Grid>
                         <Grid container>
                             <Grid item xs={12}>
-                                <Payment user={data?.user}/>
+                                <Payment user={data?.user} payment={data?.totalAmount}/>
                             </Grid>
                         </Grid>
                     </Stack>

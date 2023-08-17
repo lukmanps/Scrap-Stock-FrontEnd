@@ -5,15 +5,15 @@ import axios from '../../../../config/axios';
 
 const Payment = (props) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {user} = props;
+    const { user, payment } = props;
     console.log(user, ' : USer in payment');
 
     const handlePayment = async (amount) => {
-        const { data: {key}} = await axios.get('/admin/get-key');
-        const { data: {order} } = await axios.post('/admin/payment', amount, user);
-        
+        const { data: { key } } = await axios.get('/admin/get-key');
+        const { data: { order } } = await axios.post('/admin/payment', amount, user);
+
         console.log(key, order);
-        
+
         const options = {
             key: key, // Enter the Key ID generated from the Dashboard
             amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -39,7 +39,7 @@ const Payment = (props) => {
         const razor = new window.Razorpay(options);
         razor.open();
         // document.getElementById('rzp-button1').onclick = function (e) {
-           
+
         //     // e.preventDefault();
         // }
     }
@@ -49,6 +49,7 @@ const Payment = (props) => {
                 <CardContent sx={{ justifyContent: 'center', alignItems: 'center' }}>
                     <form onSubmit={handleSubmit(handlePayment)}>
                         <TextField
+                            value={payment}
                             type='text'
                             label='Amount'
                             size='small'

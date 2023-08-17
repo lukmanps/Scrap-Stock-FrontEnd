@@ -18,6 +18,8 @@ import UserLogin from './pages/user/user-login-page';
 import Home from './pages/user/home-page';
 import SellScrapPage from './pages/user/sell-scrap-page';
 import CheckPriceListPage from './pages/user/check-price-page';
+import RecentPickupsPage from './pages/user/recent-pickup-page';
+import ErrorBoundary from './pages/user/useErrorBoundary';
 
 //Admin Pages
 import AdminLogin from './pages/admin/AdminLoginPage';
@@ -28,13 +30,14 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import ScrapManagement from './pages/admin/ScrapManagementPage';
 import PickupDetailsPage from './pages/admin/PickupDetailsPage';
 import PaymentSuccess from './Common/payment-success';
+import PickupsPage from './pages/admin/pickupsPage';
 
 //Redux State
 import { isAdmin } from './Redux/admin/AdminInfoReducer';
 import { addUserInfo } from './Redux/user/UserInfoReducer';
 import { isUser } from './Redux/user/AuthReducer';
 import handleLogout from './APIs/user/logoutUtils';
-import PickupsPage from './pages/admin/pickupsPage';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -58,22 +61,27 @@ function App() {
   return (
     <ThemeProvider theme={GlobalTheme}>
 
+
+      {/* ::::::::::::::::::::::::::::::::::::::::: - User Side - ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */}
+      <ErrorBoundary>
+        <Routes>
+
+          <Route path='/login' element={user ? <Navigate to={'/'} replace={true} /> : <UserLogin />} />
+          <Route path='/signup' element={user ? <Navigate to={'/'} replace={true} /> : <UserSignUp />} />
+
+          <Route path='/' element={<Home />} />
+          <Route path='/check-price-list' element={<CheckPriceListPage />} />
+
+          <Route path='/' element={user ? <UserLayout /> : <Navigate to={'/login'} replace={true} />}>
+            <Route path='/sell-scrap' element={<SellScrapPage />} />
+            <Route path='/recent-pickups' element={<RecentPickupsPage />} /> 
+          </Route>
+        </Routes>
+      </ErrorBoundary>
+
+
+{/* :::::::::::::::::::::::::::::::::::::::::::::::: - Admin Side - ::::::::::::::::::::::::::::::::::::::::::::::::::: */}
       <Routes>
-        {/* <Route path='/' element={<Home/>}/> */}
-        <Route path='/login' element={user ? <Navigate to={'/'} replace={true} /> : <UserLogin />} />
-        <Route path='/signup' element={user ? <Navigate to={'/'} replace={true} /> : <UserSignUp />} />
-
-        <Route path='/' element={<Home />} />
-        <Route path='/check-price-list' element={<CheckPriceListPage />} />
-
-
-
-        <Route path='/' element={user ? <UserLayout /> : <Navigate to={'/login'} replace={true} />}>
-          <Route path='/sell-scrap' element={<SellScrapPage />} />
-        </Route>
-
-
-
         <Route path='/admin/login' element={admin ? <Navigate to={'/admin'} replace={true} /> : <AdminLogin />} />
 
         <Route path='/admin' element={admin ? <AdminLayout /> : <Navigate to={'/admin/login'} replace={true} />} >
@@ -88,6 +96,8 @@ function App() {
 
         <Route path='/admin/payment-success' element={<PaymentSuccess />} />
       </Routes>
+
+
 
     </ThemeProvider>
   )

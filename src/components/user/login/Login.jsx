@@ -12,6 +12,7 @@ import GlobalTheme from '../../../Theme/GlobalTheme';
 import { CommonButton } from '../../../Common/CommonButton';
 
 import handleLogin from '../../../APIs/user/loginAPI';
+import { signInWithGoogle } from '../../../config/firebase';
 import { toast, Toaster }  from 'react-hot-toast';
 
 
@@ -24,6 +25,23 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   let loginErr = '';
+
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle()
+    .then((result)=>{
+      if(result.status === false){
+        setError(result?.message);
+      } else {
+        localStorage.setItem('userToken', result?.accessToken);
+        dispatch(isUser(result?.accessToken));
+        dispatch(addUserInfo(result?.userData));
+      }
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+  
 
   const onSubmit = (loginData, event) => {
     event.preventDefault();
@@ -93,10 +111,10 @@ export default function Login() {
               </Box>
 
 
-              {/* <Typography>OR</Typography>
+              <Typography>OR</Typography>
               <Box mt={2}>
-                <CommonButton variant={'outlined'} color={'secondary'} sx={{ px: 6 }}>Signin with Google</CommonButton>
-              </Box> */}
+              <CommonButton variant={'outlined'} color={'secondary'} sx={{px: 6}} onClick={handleSignInWithGoogle}>Signin with Google</CommonButton>
+              </Box>
             </form>
           </Grid>
         </Grid>

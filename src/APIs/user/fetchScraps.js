@@ -8,7 +8,9 @@ const fetchScrapItems = () => {
                 resolve(response?.data);
             })
             .catch((err) => {
-                reject(err?.response.data.message);
+                console.log(err, ":: AXIOS EROOR in fetching scrap");
+                reject(err?.message);
+                throw new Error('Error while fetching Data');
             });
     });
 };

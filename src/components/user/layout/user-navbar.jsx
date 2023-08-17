@@ -10,9 +10,11 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Divider } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import GlobalTheme from '../../../Theme/GlobalTheme';
-import {  NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CommonButton } from '../../../Common/CommonButton';
 
@@ -45,18 +47,18 @@ function UserNavBar({ button, link }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  
+
   const doLogout = handleLogout();
   const handleLogoutClick = () => {
-   doLogout();
-   navigate('/');
+    doLogout();
+    navigate('/');
   }
 
   const user = useSelector((state) => state.userInfo);
 
-  const handleLoginButton = (button) =>{
+  const handleLoginButton = (button) => {
     console.log('clicked', button)
-    if(button === 'register'){
+    if (button === 'register') {
       navigate('/signup');
     } else {
       navigate('/login');
@@ -67,8 +69,12 @@ function UserNavBar({ button, link }) {
     navigate('/check-price-list')
   }
 
+  const handlePickupsPage = () => {
+    navigate('/recent-pickups')
+  }
+
   return (
-    <AppBar position="fixed" color="bg" sx={{marginBottom:'5rem'}}>
+    <AppBar position="fixed" color="bg" sx={{ marginBottom: '5rem' }}>
       <Container maxWidth="xl" >
         <Toolbar>
 
@@ -88,7 +94,7 @@ function UserNavBar({ button, link }) {
             }}
           >
             <NavLink to={'/'} className={'nav-link'}>Scrap Stock</NavLink>
-            
+
           </Typography>
 
           {/* HAMBURGER IN SMALL SCREEN */}
@@ -156,42 +162,53 @@ function UserNavBar({ button, link }) {
 
           <Box sx={{ display: { xs: 'flex', xl: 'flex' } }}>
 
-            { user ? <Box ml={3}>
+            {user ? <Box ml={3}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt={user.username} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {/* {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+
+              <Box>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                  sx={{ mt: '45px', width:'25rem', p:'50px'}}
+                >
+                  <MenuItem>
+                    <Typography variant='body2' fontWeight={500}>Hello {user.username},</Typography>
                   </MenuItem>
-                ))} */}
-                <Typography variant='subtitle1'>Hi {user.username}</Typography>
-                <MenuItem onClick={handleLogoutClick}>
-                  <Typography textAlign="center" color={'error'}>Logout</Typography>
-                </MenuItem>
-              </Menu>
-            </Box> : <CommonButton variant="contained" sx={{marginLeft: '10px'}}><NavLink to={`/${link}`} className={'nav-link'}>{button}</NavLink></CommonButton> }
+                  <Divider />
+                  <MenuItem sx={{py:0}}>
+                    <Typography variant='body2'>Profile</Typography>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem sx={{py:0}} onClick={handlePickupsPage}>
+                    <Typography variant='body2'>Pickups</Typography>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={handleLogoutClick} sx={{py:0}}>
+                  <Typography textAlign="center" color={'error'}> Logout </Typography> 
+                  {/* <LogoutIcon color='error'/> */}
+                  </MenuItem>
+                </Menu>
+              </Box>
+
+            </Box> : <CommonButton variant="contained" sx={{ marginLeft: '10px' }}><NavLink to={`/${link}`} className={'nav-link'}>{button}</NavLink></CommonButton>}
 
             {/*  */}
-            
+
           </Box>
 
         </Toolbar>

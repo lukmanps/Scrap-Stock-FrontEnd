@@ -1,12 +1,19 @@
 import * as React from 'react';
-import {Paper, Box, Button, ThemeProvider, Typography} from '@mui/material';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import {
+  Paper, 
+  Box, 
+  Button, 
+  ThemeProvider, 
+  Typography, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableHead, 
+  TablePagination,
+  TableRow
+} from '@mui/material';
+
 import AdminTheme from '../../../Theme/AdminTheme';
 import getPickupList from '../../../APIs/admin/getPickupsList';
 
@@ -52,7 +59,7 @@ export default function Pickups() {
       <Box mt={8} mb={4}>
         <Typography variant='h4' fontWeight={500}>Scrap Pickups</Typography>
       </Box>
-      
+
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
