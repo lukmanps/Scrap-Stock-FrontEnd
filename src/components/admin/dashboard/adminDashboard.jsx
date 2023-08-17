@@ -88,7 +88,7 @@ const AdminDashboard = () => {
             >
               <OverviewTotalProfit
                 sx={{ height: '100%' }}
-                value="$15k"
+                value={dashboard.totalPaid}
               />
             </Grid>
 
@@ -100,7 +100,8 @@ const AdminDashboard = () => {
               width={500}
               height={600}
             >
-              <BasicBars quantity={dashboard.scrapQty}/>
+              <BasicBars
+               quantity={dashboard.scrapQty}/>
             </Grid>
           </Grid>
         </Stack>

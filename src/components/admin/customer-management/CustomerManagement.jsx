@@ -126,7 +126,6 @@ const CustomerManagement = () => {
             </Stack>
             <CustomersSearch setSearch={handleSearchCustomer} search={search}/>
             <CustomersTable
-              count={filterCustomer.length}
               items={filterCustomer}
               fetchUserData={fetchUserData}
             />

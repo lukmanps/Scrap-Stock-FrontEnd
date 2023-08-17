@@ -26,8 +26,18 @@ const columns = ['No', 'Date', 'Time Slot', 'Pickup Date', 'Amount', 'Status'];
 
 const RecentPickup = () => {
   const [pickup, setPickup] = useState([]);
+  const [page, pageChange] = useState(0);
+  const [rowsPerPage, rowsPerPageChange] = useState(3);
   const user = useSelector((state) => state.userInfo);
 
+  const handlePageChange = (event, newPage) => {
+    pageChange(newPage)
+  }
+
+  const handleRowsPerPage = (event) => {
+    rowsPerPageChange(+event.target.value);
+    pageChange(0)
+  }
 
   async function getPickups() {
     const pickups = await getRecentPickups(user.id);
@@ -63,6 +73,7 @@ const RecentPickup = () => {
         <Grid container>
           <Grid item sm={12} md={12} mt={5} >
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+
               <TableContainer>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
@@ -76,6 +87,7 @@ const RecentPickup = () => {
                   </TableHead>
                   <TableBody>
                     {pickup
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .map((pickup, index) => { // Added 'index' parameter to map function
                         return (
                           <TableRow key={pickup._id} hover role="checkbox" tabIndex={-1}>
@@ -83,31 +95,36 @@ const RecentPickup = () => {
                               {index + 1}
                             </TableCell>
                             <TableCell align='left'>
-                              {pickup.date} 
-                            </TableCell>
-                            <TableCell align='left'>
-                              {pickup.timeSlot.date}
+                              {pickup.date}
                             </TableCell>
                             <TableCell align='left'>
                               {pickup.timeSlot.time}
                             </TableCell>
                             <TableCell align='left'>
-                              {pickup.totalAmount}
+                              {pickup.timeSlot.date}
+                            </TableCell>
+                            <TableCell align='left'>
+                              &#8377; {pickup.totalAmount}
                             </TableCell>
                             <TableCell align='left'>
                               {pickup.status}
                             </TableCell>
-                            {/* <TableCell align='left'>
-                              <Button variant='outlined'>
-                                <NavLink to={`/admin/pickup-details/${pickup._id}`}>Details</NavLink>
-                              </Button>
-                            </TableCell> */}
                           </TableRow>
                         );
                       })}
                   </TableBody>
                 </Table>
               </TableContainer>
+
+              <TablePagination
+                component='div'
+                rowsPerPageOptions={[3, 5, 7]}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                count={pickup.length}
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handleRowsPerPage}>
+              </TablePagination>
 
             </Paper>
           </Grid>

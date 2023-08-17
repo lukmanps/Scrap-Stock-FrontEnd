@@ -22,36 +22,39 @@ import axios from '../../../../config/axios';
 // import { getInitials } from 'src/utils/get-initials';
 
 export const CustomersTable = (props) => {
-  // const [page, setPage] = React.useState(0);
-  // const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, pageChange] = useState(0);
+  const [rowsPerPage, rowsPerPageChange] = useState(3);
   let [status, setStatus] = useState(false);
 
+  const handlePageChange = (event, newPage) => {
+    pageChange(newPage)
+  }
+
+  const handleRowsPerPage = (event) => {
+    rowsPerPageChange(+event.target.value);
+    pageChange(0)
+  }
+
   const {
-    count,
     items = [],
-    onPageChange = () => { },
-    onRowsPerPageChange,
-    page = 0,
-    rowsPerPage = 0,
-    selected = [],
     fetchUserData
   } = props;
 
-  const changeUserStatus = (userId, {isBlocked}) => {
+  const changeUserStatus = (userId, { isBlocked }) => {
     console.log("chagen user stausdlkjdf cajfoio=");
     axios.patch('/admin/change-status?id=' + userId)
       .then((response) => {
         status = !status
         setStatus(status);
-        if(isBlocked === true){
+        if (isBlocked === true) {
           toast.error('Customer Blocked');
           fetchUserData();
         } else {
           toast.success('Customer Unblocked');
           fetchUserData();
         }
-        
-        
+
+
       })
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);
@@ -64,7 +67,7 @@ export const CustomersTable = (props) => {
     <Card>
       {/* <Scrollbar> */}
       <Box sx={{ minWidth: 800 }} pl={3}>
-      <Toaster />
+        <Toaster />
         <Table>
           <TableHead>
             <TableRow>
@@ -92,7 +95,9 @@ export const CustomersTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((customer, index) => {
+            {items
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((customer, index) => {
 
               return (
                 <TableRow
@@ -100,7 +105,7 @@ export const CustomersTable = (props) => {
                   key={customer.id}
                 >
                   <TableCell padding="checkbox">
-                    {index+1}
+                    {index + 1}
                   </TableCell>
                   <TableCell padding="checkbox">
                     <Avatar alt={customer.username} src="/static/images/avatar/2.jpg" />
@@ -124,12 +129,12 @@ export const CustomersTable = (props) => {
                     {customer.phoneNo}
                   </TableCell>
                   <TableCell>
-                  &#8377;{customer.wallet}
+                    &#8377;{customer.wallet}
                   </TableCell>
                   <TableCell>
                     {(customer.status === false) ?
-                      <Button variant='contained' color='success' onClick={() => changeUserStatus(customer._id, {isBlocked: false})} >Unblock </Button> :
-                      <Button variant={'contained'} color={'error'} onClick={() => changeUserStatus(customer._id, {isBlocked: true})}>Block</Button>}
+                      <Button variant='contained' color='success' onClick={() => changeUserStatus(customer._id, { isBlocked: false })} >Unblock </Button> :
+                      <Button variant={'contained'} color={'error'} onClick={() => changeUserStatus(customer._id, { isBlocked: true })}>Block</Button>}
 
                   </TableCell>
                   <TableCell>
@@ -141,15 +146,16 @@ export const CustomersTable = (props) => {
           </TableBody>
         </Table>
       </Box>
-      <TablePagination 
-        component="div"
-        count={count}
-        onPageChange={onPageChange}
-        onRowsPerPageChange={onRowsPerPageChange}
-        page={page}
+      <TablePagination
+        component='div'
+        rowsPerPageOptions={[3, 5, 7]}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
+        page={page}
+        count={items.length}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPage}>
+      </TablePagination>
+
     </Card>
   );
 };

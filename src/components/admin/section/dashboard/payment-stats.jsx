@@ -19,10 +19,10 @@ export const OverviewTotalProfit = (props) => {
               color="text.secondary"
               variant="overline"
             >
-              Total Profit
+              Total Amount Paid
             </Typography>
             <Typography variant="h4">
-              {value}
+            &#8377; {value}
             </Typography>
           </Stack>
           <Avatar
