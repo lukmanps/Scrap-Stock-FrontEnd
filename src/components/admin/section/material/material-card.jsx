@@ -82,7 +82,7 @@ export const MaterialCard = (props) => {
             {scrap.price} /kg
           </Typography>
         </Stack>
-        <Stack
+        {/* <Stack
           alignItems="center"
           direction="row"
           spacing={1}
@@ -94,7 +94,7 @@ export const MaterialCard = (props) => {
             <EditIcon />
           </SvgIcon>
           <Button variant='outlined'>Edit</Button>
-        </Stack>
+        </Stack> */}
       </Stack>
     </Card>
   );

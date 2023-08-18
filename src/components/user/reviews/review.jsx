@@ -60,8 +60,6 @@ const Review = () => {
                     </Grid>
                 ))}
 
-
-
             </Grid>
         </ThemeProvider>
     )

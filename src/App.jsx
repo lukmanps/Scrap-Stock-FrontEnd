@@ -10,6 +10,7 @@ import GlobalTheme from './Theme/GlobalTheme';
 //Layouts
 import AdminLayout from './components/admin/layout/Layout';
 import UserLayout from './components/user/layout/Layout';
+import PageNotFound from './pages/page-not-found';
 
 
 //User Pages
@@ -76,6 +77,7 @@ function App() {
             <Route path='/sell-scrap' element={<SellScrapPage />} />
             <Route path='/recent-pickups' element={<RecentPickupsPage />} /> 
           </Route>
+          {/* <Route path='*' element={<PageNotFound/>}/> */}
         </Routes>
       </ErrorBoundary>
 
@@ -92,7 +94,7 @@ function App() {
           <Route path='pickups' element={<PickupsPage />} />
           <Route path='pickup-details/:id' element={<PickupDetailsPage />} />
         </Route>
-        {/* <Route path='*' element={<PageNotFound/>}/> */}
+        
 
         <Route path='/admin/payment-success' element={<PaymentSuccess />} />
       </Routes>

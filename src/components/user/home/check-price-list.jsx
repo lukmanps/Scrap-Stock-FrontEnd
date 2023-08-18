@@ -20,10 +20,16 @@ import ScrapCard from '../../../Common/scrap-card';
 import AdminTheme from '../../../Theme/AdminTheme';
 import fetchScrapItems from '../../../APIs/user/fetchScraps';
 import axios from '../../../config/axios';
+import SearchBar from './section/search-bar';
 
 const CheckPriceList = () => {
 
     const [scrap, setScrap] = useState([]);
+    const [search, setSearch] = useState('');
+
+    const handleScrapSearch = (value) =>{
+        setSearch(value)
+    }
 
 
     useEffect(() => {
@@ -36,6 +42,14 @@ const CheckPriceList = () => {
             })
     }, []);
 
+    let filterScrap = []
+
+    if(search !== ''){
+      filterScrap = scrap.filter(item => item.scrap.toLowerCase().includes(search.toLowerCase()))
+    } else {
+      filterScrap = scrap;
+    }
+
     return (
         <ThemeProvider theme={AdminTheme}>
             <Container maxWidth='xl'>
@@ -46,10 +60,16 @@ const CheckPriceList = () => {
                     </Grid>
                 </Grid>
 
-                <Box sx={{ mt: '1rem' }}><Typography variant='h5'>Paper</Typography></Box>
+                <Grid container sx={{ marginBottom: '2rem' }}>
+                    <Grid item xs={12} lg={12}>
+                        <SearchBar setSearch={handleScrapSearch} search={search} />
+                    </Grid>
+                </Grid>
+
+                {/* <Box sx={{ mt: '1rem' }}><Typography variant='h5'>Paper</Typography></Box> */}
 
                 <Grid container spacing={2}>
-                    {scrap.map((scrapItem) => (
+                    {filterScrap.map((scrapItem) => (
                         <Grid item xs={5} md={3} lg={2} width={'25rem'} key={scrapItem.scrap}>
                             <Card sx={{ borderRadius: '15px' }}>
                                 <CardContent>

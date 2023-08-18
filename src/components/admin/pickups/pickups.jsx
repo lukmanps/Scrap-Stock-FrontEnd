@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {
   Paper, 
   Box, 
@@ -21,30 +21,29 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 const columns = ['No', 'Date', 'Name', 'Location', 'status'];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
+function dateDisplayFormat(date){
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth()+1).padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
 }
 
+
 export default function Pickups() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, pageChange] = useState(0);
+  const [rowsPerPage, rowsPerPageChange] = useState(3);
+  const [pickups, setPickups] = React.useState([]);
   const navigate = useNavigate();
 
-  const [pickups, setPickups] = React.useState([]);
+  const handlePageChange = (event, newPage) => {
+    pageChange(newPage)
+  }
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  const handleDetails = (id) => {
-    console.log(id, "ID in handleDetails");
-  };
+  const handleRowsPerPage = (event) => {
+    rowsPerPageChange(+event.target.value);
+    pageChange(0)
+  }
 
   React.useEffect(() => {
     getPickupList()
@@ -105,15 +104,15 @@ export default function Pickups() {
           </Table>
         </TableContainer>
         {/* Uncomment and update props based on your data source (rows) to enable pagination */}
-        {/* <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={pickups.length} // Update to the total count of pickups
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
+        <TablePagination
+        component='div'
+        rowsPerPageOptions={[3, 5, 7]}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        count={pickups.length}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPage}>
+      </TablePagination>
       </Paper>
     </ThemeProvider>
   );

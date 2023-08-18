@@ -83,7 +83,7 @@ const SelectItems = (props) => {
           </Grid>
         </Grid>
 
-        <Box sx={{ mt: '1rem' }}><Typography variant='h5'>Paper</Typography></Box>
+        {/* <Box sx={{ mt: '1rem' }}><Typography variant='h5'>Paper</Typography></Box> */}
 
         <Grid container spacing={2}>
           {scrap.map((scrapItem, index) => (

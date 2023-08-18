@@ -21,6 +21,7 @@ import WalletIcon from '@mui/icons-material/Wallet';
 import GlobalTheme from '../../../Theme/GlobalTheme';
 import getRecentPickups from '../../../APIs/user/getRecentPickups';
 import { useSelector } from 'react-redux';
+import axios from '../../../config/axios';
 
 const columns = ['No', 'Date', 'Time Slot', 'Pickup Date', 'Amount', 'Status'];
 
@@ -28,7 +29,11 @@ const RecentPickup = () => {
   const [pickup, setPickup] = useState([]);
   const [page, pageChange] = useState(0);
   const [rowsPerPage, rowsPerPageChange] = useState(3);
+
+
   const user = useSelector((state) => state.userInfo);
+
+  console.log(user,  ' :: USer detail in recent pickps');
 
   const handlePageChange = (event, newPage) => {
     pageChange(newPage)
@@ -48,7 +53,6 @@ const RecentPickup = () => {
     getPickups()
   }, []);
 
-  console.log(pickup);
 
   return (
     <ThemeProvider theme={GlobalTheme}>
@@ -65,7 +69,7 @@ const RecentPickup = () => {
                   <Typography variant='body1' fontWeight={500}>Wallet</Typography>
                 </Grid>
               </Grid>
-              <Typography variant='h4' color={'primary'} fontWeight={500}>&#8377; 94</Typography>
+              <Typography variant='h4' color={'primary'} fontWeight={500}>&#8377; {user.wallet}</Typography>
             </CardContent>
           </Card>
         </Grid>

@@ -37,9 +37,6 @@ const now = new Date();
 const CustomerManagement = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  // const customers = useCustomers(page, rowsPerPage);
-  // const customersIds = useCustomerIds(customers);
-  // const customersSelection = useSelection(customersIds);
   const [users, setUser] = React.useState([]);
   let [status, setStatus] = React.useState('');
   const [search, setSearch] = useState('')
