@@ -43,24 +43,20 @@ const ReviewForm = () => {
 
     const user = useSelector((state) => state.userInfo);
     const userId = user.id;
-    console.log(userId, "::USER Id");
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const handleForm = (data) => {
         const review = data.review;
-        console.log(review, ":: Review Text");
         if (value === 0 || !value || !userId) {
             toast.error('Please add your rating to submit!');
         } else {
             axios.post('/review', { userId, review, value })
                 .then((response) => {
                     toast.success('Review submitted!')
-                    console.log(response?.data, " :: Response fsdfa");
                 })
                 .catch((err) => {
                     toast.error("Review couldn't submit")
-                    console.log(err, " :: RESPONSE from adding review")
                 })
         }
 
@@ -70,14 +66,15 @@ const ReviewForm = () => {
         <ThemeProvider theme={GlobalTheme}>
             <Toaster />
             {user && <Grid container mt={5} justifyContent={'center'}>
-                <Grid item lg={12}>
+                <Grid item xs={12} lg={12} textAlign={'center'}>
                     <Typography variant='h5' fontWeight={600}>Write a Review!</Typography>
                 </Grid>
-                <Grid item xs={12} md={12} lg={8}>
-                    <Grid item justifyContent={'center'}>
+                <Grid xs={12} md={12} lg={8} mt={3} justifyContent={'center'}>
+                    <Grid item sx={{ justifyContent: 'center'}}>
                         <form noValidate onSubmit={handleSubmit(handleForm)}>
+                            
                             <TextField
-                                label="Textarea"
+                                label="Write your valuable feedback!"
                                 variant="outlined"
                                 fullWidth
                                 multiline

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Typography, Button } from '@mui/material';
 import { Home as HomeIcon } from '@mui/icons-material';
 
 const PageNotFound = () => {
+
+    // np
     return (
         <>
             <Box
@@ -13,6 +15,7 @@ const PageNotFound = () => {
                 alignItems="center"
                 minHeight="80vh"
             >
+                <Box className='container' />
                 <Typography variant="h1" color="primary" gutterBottom>
                     404
                 </Typography>

@@ -12,6 +12,7 @@ import CustomersSearch from '../section/customer/customer-search';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import AdminTheme from '../../../Theme/AdminTheme';
 import axios, { setAccessToken } from '../../../config/axios';
+import LoadingScreen from '../../../Common/Loading-screen';
 // import { applyPagination } from 'src/utils/apply-pagination';
 
 const now = new Date();
@@ -41,6 +42,7 @@ const CustomerManagement = () => {
   let [status, setStatus] = React.useState('');
   const [search, setSearch] = useState('')
   let [remove, setRemove] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   console.log(users, 'Userss');
 
@@ -67,13 +69,17 @@ const CustomerManagement = () => {
   }
 
   const fetchUserData=()=>{
-    axios.get('/admin/user-management')
+    if(isLoading){
+      axios.get('/admin/user-management')
     .then((response) => {
       setUser(response?.data);
+      setIsLoading(false);
     })
     .catch((err) => {
       console.log(err, " :Axios Error");
     })
+    }
+    
   }
 
   React.useEffect(() => {
@@ -88,6 +94,10 @@ const CustomerManagement = () => {
   } else {
     filterCustomer = users;
   }
+
+  // if(isLoading){
+  //   return <LoadingScreen />
+  // }
 
   return (
     <ThemeProvider theme={AdminTheme}>
@@ -122,6 +132,10 @@ const CustomerManagement = () => {
               
             </Stack>
             <CustomersSearch setSearch={handleSearchCustomer} search={search}/>
+            {(isLoading) && 
+              <LoadingScreen />
+            }
+
             <CustomersTable
               items={filterCustomer}
               fetchUserData={fetchUserData}

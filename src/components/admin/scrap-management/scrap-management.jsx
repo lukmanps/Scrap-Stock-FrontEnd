@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import ArrowUpOnSquareIcon from '@heroicons/react/24/solid/ArrowUpOnSquareIcon';
 
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
@@ -20,12 +20,14 @@ import GlobalTheme from '../../../Theme/GlobalTheme';
 import AddMaterialModal from '../section/material/add-material-modal';
 import axios from '../../../config/axios';
 import AdminTheme from '../../../Theme/AdminTheme';
+import LoadingScreen from '../../../Common/Loading-screen';
 
 
 
 const ScrapManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrap, setScrap] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -35,19 +37,23 @@ const ScrapManagement = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(()=>{
-    axios.get('/admin/scrap-management')
-    .then((response)=>{
-      console.log(response.data ,": scrap materials")
-      setScrap(response.data)
-    })
-    .catch((err)=>{
-      console.log(err, " : AXIOS Error");
-    })
-  },[])
+  useEffect(() => {
+    if (isLoading) {
+      axios.get('/admin/scrap-management')
+        .then((response) => {
+          console.log(response.data, ": scrap materials")
+          setScrap(response.data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err, " : AXIOS Error");
+        })
+    }
+
+  }, [])
   return (
-  <ThemeProvider theme={AdminTheme}>
-    <Box
+    <ThemeProvider theme={AdminTheme}>
+      <Box
         component="main"
         sx={{
           flexGrow: 1,
@@ -93,6 +99,9 @@ const ScrapManagement = () => {
               </div>
             </Stack>
             {/* <MaterialSearch /> */}
+            <Grid item>
+              {(isLoading) && <LoadingScreen/>}
+            </Grid>
             <Grid
               container
               spacing={3}
@@ -122,8 +131,8 @@ const ScrapManagement = () => {
           </Stack>
         </Container>
       </Box>
-  </ThemeProvider>
-      
+    </ThemeProvider>
+
 
   )
 

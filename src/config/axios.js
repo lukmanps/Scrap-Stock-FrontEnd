@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const instance = axios.create({ baseURL: "http://localhost:8000" });
+const instance = axios.create({ baseURL: "https://scrapstock.online/" });
 
 export const setAccessToken = (roll) => {
     let token; // Declare the token variable here
@@ -8,6 +8,7 @@ export const setAccessToken = (roll) => {
        token = localStorage.getItem('adminToken');
     } else {
         token = localStorage.getItem('userToken');
+        console.log(token, 'User Token in client side');
     }
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
 }

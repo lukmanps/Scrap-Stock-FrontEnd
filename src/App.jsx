@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import './App.css';
 import './components/user/layout/Layout'
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,7 @@ import SellScrapPage from './pages/user/sell-scrap-page';
 import CheckPriceListPage from './pages/user/check-price-page';
 import RecentPickupsPage from './pages/user/recent-pickup-page';
 import ErrorBoundary from './pages/user/useErrorBoundary';
+import PickupSuccess from './components/user/pickups/pickup-success-page';
 
 //Admin Pages
 import AdminLogin from './pages/admin/AdminLoginPage';
@@ -38,6 +39,7 @@ import { isAdmin } from './Redux/admin/AdminInfoReducer';
 import { addUserInfo } from './Redux/user/UserInfoReducer';
 import { isUser } from './Redux/user/AuthReducer';
 import handleLogout from './APIs/user/logoutUtils';
+import LoadingScreen from './Common/Loading-screen';
 
 
 function App() {
@@ -48,16 +50,18 @@ function App() {
   const userData = useSelector((state) => state.userInfo);
   const admin = useSelector((state) => state.adminInfo);
 
+  const [isLoading, setIsLoading] = useState(true);
   const doLogout = handleLogout();
 
   useEffect(() => {
-    if (userData.status === false) {
-      doLogout();
-      navigate('/');
-    }
     dispatch(isUser(user));
     dispatch(isAdmin(admin));
+    setIsLoading(false);
   }, [dispatch]);
+
+  if (isLoading) {
+    return <LoadingScreen />
+  }
 
   return (
     <ThemeProvider theme={GlobalTheme}>
@@ -75,31 +79,34 @@ function App() {
 
           <Route path='/' element={user ? <UserLayout /> : <Navigate to={'/login'} replace={true} />}>
             <Route path='/sell-scrap' element={<SellScrapPage />} />
-            <Route path='/recent-pickups' element={<RecentPickupsPage />} /> 
+            <Route path='/recent-pickups' element={<RecentPickupsPage />} />
+            <Route path='/scheduled-pickup' element={<PickupSuccess />} />
+            <Route path='*' element={<PageNotFound/>}/>
           </Route>
-          {/* <Route path='*' element={<PageNotFound/>}/> */}
+          
+
+
+
+
+      {/* :::::::::::::::::::::::::::::::::::::::::::::::: - Admin Side - ::::::::::::::::::::::::::::::::::::::::::::::::::: */}
+
+          <Route path='/admin/login' element={admin ? <Navigate to={'/admin'} replace={true} /> : <AdminLogin />} />
+
+          <Route path='/admin' element={admin ? <AdminLayout /> : <Navigate to={'/admin/login'} replace={true} />} >
+            <Route index element={<AdminDashboardPage />} />
+            <Route path='user-management' element={<UserManagement />} />
+            <Route path='view-user/:id' element={<ViewUserPage />} />
+            <Route path='scrap-management' element={<ScrapManagement />} />
+            <Route path='pickups' element={<PickupsPage />} />
+            <Route path='pickup-details/:id' element={<PickupDetailsPage />} />
+            <Route path='*' element={<PageNotFound/>}/>
+          </Route>
+
+
+          <Route path='/admin/payment-success' element={<PaymentSuccess />} />
         </Routes>
+
       </ErrorBoundary>
-
-
-{/* :::::::::::::::::::::::::::::::::::::::::::::::: - Admin Side - ::::::::::::::::::::::::::::::::::::::::::::::::::: */}
-      <Routes>
-        <Route path='/admin/login' element={admin ? <Navigate to={'/admin'} replace={true} /> : <AdminLogin />} />
-
-        <Route path='/admin' element={admin ? <AdminLayout /> : <Navigate to={'/admin/login'} replace={true} />} >
-          <Route index element={<AdminDashboardPage />} />
-          <Route path='user-management' element={<UserManagement />} />
-          <Route path='view-user/:id' element={<ViewUserPage />} />
-          <Route path='scrap-management' element={<ScrapManagement />} />
-          <Route path='pickups' element={<PickupsPage />} />
-          <Route path='pickup-details/:id' element={<PickupDetailsPage />} />
-        </Route>
-        
-
-        <Route path='/admin/payment-success' element={<PaymentSuccess />} />
-      </Routes>
-
-
 
     </ThemeProvider>
   )

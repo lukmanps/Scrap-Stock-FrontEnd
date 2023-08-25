@@ -53,7 +53,6 @@ export default function Signup() {
       .post('/signup', data)
       .then((response) => {
         if (response.data.status === false) {
-          console.log('User Registration Failed');
           //Show Error message to user
           setError(response.data?.message);
         } else {
@@ -192,7 +191,7 @@ export default function Signup() {
 
         <Grid item xs={12} md={6} marginTop={5}>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <img src='src\assets\signuppage.png' alt='Signup Page Vector' width={'100%'} />
+            <img src='assets\signuppage.png' alt='Signup Page Vector' width={'100%'} />
           </Box>
         </Grid>
       </Grid>

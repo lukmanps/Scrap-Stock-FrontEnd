@@ -1,4 +1,5 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore} from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 import authReducer from './user/AuthReducer';
 import userInfo from './user/UserInfoReducer';
 import adminInfo from './admin/AdminInfoReducer';
@@ -18,18 +19,13 @@ const reducer = combineReducers({
     adminInfo: adminInfo
 });
 
+
+
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-// const store = configureStore({
-//     reducer: {
-//         auth: authReducer,
-//         userInfo: userInfo,
-//         adminInfo: adminInfo
-//     }
-// })
-
 export const store = configureStore({
-    reducer: persistedReducer
+    reducer: persistedReducer,
+    middleware: [thunk]
 });
 export const persistor = persistStore(store);
 export default store;

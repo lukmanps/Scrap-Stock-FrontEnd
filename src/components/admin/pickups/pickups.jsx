@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-  Paper, 
-  Box, 
-  Button, 
-  ThemeProvider, 
-  Typography, 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableContainer, 
-  TableHead, 
+  Paper,
+  Box,
+  Button,
+  ThemeProvider,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
   TablePagination,
   TableRow
 } from '@mui/material';
@@ -18,22 +18,19 @@ import AdminTheme from '../../../Theme/AdminTheme';
 import getPickupList from '../../../APIs/admin/getPickupsList';
 
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import LoadingScreen from '../../../Common/Loading-screen';
+import formatDate from '../../../Common/date-format';
 
 const columns = ['No', 'Date', 'Name', 'Location', 'status'];
 
-function dateDisplayFormat(date){
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth()+1).padStart(2, '0');
-  const year = date.getFullYear();
 
-  return `${day}-${month}-${year}`;
-}
 
 
 export default function Pickups() {
   const [page, pageChange] = useState(0);
   const [rowsPerPage, rowsPerPageChange] = useState(3);
   const [pickups, setPickups] = React.useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const handlePageChange = (event, newPage) => {
@@ -46,11 +43,15 @@ export default function Pickups() {
   }
 
   React.useEffect(() => {
-    getPickupList()
-      .then((response) => {
-        console.log(response, ' :: Pickup List');
-        setPickups(response);
-      });
+    if (isLoading) {
+      getPickupList()
+        .then((response) => {
+          console.log(response, ' :: Pickup List');
+          setPickups(response);
+          setIsLoading(false);
+        });
+    }
+
   }, []);
 
   return (
@@ -61,6 +62,7 @@ export default function Pickups() {
 
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
+          {(isLoading) && <LoadingScreen /> } 
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -81,7 +83,7 @@ export default function Pickups() {
                         {index + 1}
                       </TableCell>
                       <TableCell align='left'>
-                        {pickup.date} {/* Hardcoded date, consider using 'pickup.date' */}
+                        {formatDate(pickup.date)} {/* Hardcoded date, consider using 'pickup.date' */}
                       </TableCell>
                       <TableCell align='left'>
                         {pickup.formData.name}
@@ -105,14 +107,14 @@ export default function Pickups() {
         </TableContainer>
         {/* Uncomment and update props based on your data source (rows) to enable pagination */}
         <TablePagination
-        component='div'
-        rowsPerPageOptions={[3, 5, 7]}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        count={pickups.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowsPerPage}>
-      </TablePagination>
+          component='div'
+          rowsPerPageOptions={[3, 5, 7]}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          count={pickups.length}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleRowsPerPage}>
+        </TablePagination>
       </Paper>
     </ThemeProvider>
   );

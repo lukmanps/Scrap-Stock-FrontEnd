@@ -4,18 +4,20 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import axios from '../config/axios';
 
+
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyBnAp2XC3s2lJJ5pg-PSx5KeQxRd_PJRNU",
+    apiKey: 'AIzaSyBnAp2XC3s2lJJ5pg-PSx5KeQxRd_PJRNU',
     authDomain: "scrap-stock.firebaseapp.com",
     projectId: "scrap-stock",
     storageBucket: "scrap-stock.appspot.com",
-    messagingSenderId: "308138911283",
-    appId: "1:308138911283:web:d48b4c3c3c93a776aa2546",
+    messagingSenderId: '308138911283',
+    appId:'1:308138911283:web:d48b4c3c3c93a776aa2546',
     measurementId: "G-CMSLNQ19D5"
 };
 

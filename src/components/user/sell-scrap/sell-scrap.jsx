@@ -7,6 +7,7 @@ import TimeSlote from './section/time-slot';
 import { Box, Stepper, Step, StepLabel, StepButton, Typography, Button, ThemeProvider } from '@mui/material';
 import GlobalTheme from '../../../Theme/GlobalTheme';
 import submitPickupSchedule from '../../../APIs/user/submit-pickup-schedule';
+import { useNavigate } from 'react-router-dom';
 
 const steps = ['Select Scraps', 'Enter Details', 'Schedule Pickup'];
 
@@ -16,6 +17,9 @@ const SellScrap = () => {
   const [timeSlot, setTimeSlot] = useState({});
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = React.useState({});
+
+  const [response, setResponse] = useState(''); //Store data from database after scheduling pickup.
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.userInfo);
 
@@ -67,8 +71,6 @@ const SellScrap = () => {
     handleNext();
   }
 
-  console.log(scrap, " :: SCRAP received")
-
   const handleFormData = (data) => {
     if (!data) {
       toast.error('Enter your Details');
@@ -84,19 +86,19 @@ const SellScrap = () => {
     });
   }
 
-  console.log(timeSlot, " :: Time Slot Received")
-
 
 
   const schedulePickup = (e) => {
     e.preventDefault();
     if (combinedData.user && combinedData.scrap && combinedData.formData && combinedData.timeSlot) {
       submitPickupSchedule(combinedData)
-        .then((status) => {
-          if (status === false) {
+        .then((response) => {
+          if (response.status === false) {
             toast.error("Pickup couldn't Schedule")
           } else {
             toast.success("Pickup Scheduled");
+            setResponse(response.response);
+            navigate('/scheduled-pickup');
           }
         })
     } else {

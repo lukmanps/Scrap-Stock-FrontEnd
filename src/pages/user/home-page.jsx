@@ -17,12 +17,13 @@ function Home() {
     navigate('/sell-scrap');
   }
 
+
   return (
     <div id='user-body'>
       <ThemeProvider theme={GlobalTheme}>
         <UserNavBar button={'Login'} link={'login'} />
         <Box>
-          <Container maxWidth='xl' margintop={1}>
+          <Container maxWidth='xl' margintop={3}>
 
             <Grid container spacing={3} sx={{ alignItems: 'center', justifyContent: 'center' }}>
               <Grid item textAlign={'left'} sx={{ display: { md: 'flex', xs: 'none' } }}>
@@ -40,7 +41,7 @@ function Home() {
 
               <Grid item sm={12} md={6} alignContent={'center'} justifyContent={'center'}>
                 <Box>
-                  <img src='src\assets\homevector.png' alt='Home Page Vector' width={'100%'} />
+                  <img src='assets\homevector.png' alt='Home Page Vector' width={'100%'} />
                 </Box>
               </Grid>
             </Grid>
@@ -51,7 +52,7 @@ function Home() {
 
             <Grid container spacing={12} alignContent={'center'} alignItems={'center'} justifyContent={'center'}>
               <Grid item xs={12} md={4} >
-                <img src='src\assets\children-vector.png' alt='Children Vector' width={'100%'} />
+                <img src='\assets\children-vector.png' alt='Children Vector' width={'100%'} />
               </Grid>
               <Grid item xs={12} md={6} textAlign={'left'}>
                 <Typography variant='h4' sx={{ fontWeight: 500 }}>Know your Contribution <br /> to the Environment</Typography>
@@ -66,7 +67,7 @@ function Home() {
                 <Card sx={{ backgroundColor: '#018A44', borderRadius: '30px', marginTop: 2, textAlign: 'center' }}>
                   <CardMedia
                     component="img"
-                    image="\src\assets\choice.png"
+                    image="\assets\choice.png"
                     alt="Choose Material"
                     sx={{ padding: 3, width: '200px', height: 'auto' }} />
                 </Card>
@@ -80,7 +81,7 @@ function Home() {
                 <Card sx={{ backgroundColor: '#018A44', borderRadius: '30px', marginTop: 2 }}>
                   <CardMedia
                     component="img"
-                    image="\src\assets\schedule.png"
+                    image="\assets\schedule.png"
                     alt="Choose Material"
                     sx={{ padding: 3, width: '200px', height: 'auto' }} />
                 </Card>
@@ -93,7 +94,7 @@ function Home() {
                 <Card sx={{ backgroundColor: '#018A44', borderRadius: '30px', marginTop: 2, textAlign: 'center' }}>
                   <CardMedia
                     component="img"
-                    image="\src\assets\receive-money.png"
+                    image="\assets\receive-money.png"
                     alt="Choose Material"
                     sx={{ padding: 3, width: '200px', height: 'auto' }} />
                 </Card>
