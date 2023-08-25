@@ -24,7 +24,7 @@ const Payment = (props) => {
             // image: "https://example.com/your_logo",
             order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             userId: user,
-            callback_url: `http://localhost:8000/admin/payment-verification?amount=${encodeURIComponent(order.amount)}&userId=${encodeURIComponent(user)}`,
+            callback_url: `https://scrapstock.online/admin/payment-verification?amount=${encodeURIComponent(order.amount)}&userId=${encodeURIComponent(user)}`,
             prefill: {
                 name: "Scrap Stock admin",
                 email: "admin1@scrapstock.com",

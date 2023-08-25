@@ -189,10 +189,10 @@ function UserNavBar({ button, link }) {
                   <MenuItem>
                     <Typography variant='body2' fontWeight={500}>Hello {user.username},</Typography>
                   </MenuItem>
-                  <Divider />
+                  {/* <Divider />
                   <MenuItem sx={{py:0}}>
                     <Typography variant='body2'>Profile</Typography>
-                  </MenuItem>
+                  </MenuItem> */}
                   <Divider />
                   <MenuItem sx={{py:0}} onClick={handlePickupsPage}>
                     <Typography variant='body2'>Pickups</Typography>

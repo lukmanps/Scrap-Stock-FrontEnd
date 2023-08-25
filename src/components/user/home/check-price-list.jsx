@@ -27,7 +27,7 @@ const CheckPriceList = () => {
     const [scrap, setScrap] = useState([]);
     const [search, setSearch] = useState('');
 
-    const handleScrapSearch = (value) =>{
+    const handleScrapSearch = (value) => {
         setSearch(value)
     }
 
@@ -44,10 +44,10 @@ const CheckPriceList = () => {
 
     let filterScrap = []
 
-    if(search !== ''){
-      filterScrap = scrap.filter(item => item.scrap.toLowerCase().includes(search.toLowerCase()))
+    if (search !== '') {
+        filterScrap = scrap.filter(item => item.scrap.toLowerCase().includes(search.toLowerCase()))
     } else {
-      filterScrap = scrap;
+        filterScrap = scrap;
     }
 
     return (
@@ -66,22 +66,104 @@ const CheckPriceList = () => {
                     </Grid>
                 </Grid>
 
-                {/* <Box sx={{ mt: '1rem' }}><Typography variant='h5'>Paper</Typography></Box> */}
+                <Box sx={{ m: '1rem' }}><Typography variant='h5'>Paper</Typography></Box>
 
                 <Grid container spacing={2}>
-                    {filterScrap.map((scrapItem) => (
-                        <Grid item xs={5} md={3} lg={2} width={'25rem'} key={scrapItem.scrap}>
-                            <Card sx={{ borderRadius: '15px' }}>
-                                <CardContent>
-                                    <Typography variant='h5' align='left'>
-                                        {scrapItem.scrap}
-                                    </Typography>
-                                    <Typography variant='body1'>&#8377; {scrapItem.price} /kg</Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                    ))}
+                    {filterScrap
+                        .filter((scrapItem => scrapItem.category === 'Paper'))
+                        .map((scrapItem) => (
+                            <Grid item xs={5} md={3} lg={2} width={'25rem'} key={scrapItem.scrap}>
+                                <Card sx={{ borderRadius: '15px' }}>
+                                    <CardContent>
+                                        <Typography variant='h5' align='left'>
+                                            {scrapItem.scrap}
+                                        </Typography>
+                                        <Typography variant='body1'>&#8377; {scrapItem.price} /kg</Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        ))}
                 </Grid>
+
+                <Box sx={{ m: '1rem' }}><Typography variant='h5'>Plastic</Typography></Box>
+
+                <Grid container spacing={2}>
+                    {filterScrap
+                        .filter((scrapItem => scrapItem.category === 'Plastic'))
+                        .map((scrapItem) => (
+                            <Grid item xs={5} md={3} lg={2} width={'25rem'} key={scrapItem.scrap}>
+                                <Card sx={{ borderRadius: '15px' }}>
+                                    <CardContent>
+                                        <Typography variant='h5' align='left'>
+                                            {scrapItem.scrap}
+                                        </Typography>
+                                        <Typography variant='body1'>&#8377; {scrapItem.price} /kg</Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        ))}
+                </Grid>
+
+                <Box sx={{ m: '1rem' }}><Typography variant='h5'>Metals</Typography></Box>
+
+                <Grid container spacing={2}>
+                    {filterScrap
+                        .filter((scrapItem => scrapItem.category === 'Metal'))
+                        .map((scrapItem) => (
+                            <Grid item xs={5} md={3} lg={2} width={'25rem'} key={scrapItem.scrap}>
+                                <Card sx={{ borderRadius: '15px' }}>
+                                    <CardContent>
+                                        <Typography variant='h5' align='left'>
+                                            {scrapItem.scrap}
+                                        </Typography>
+                                        <Typography variant='body1'>&#8377; {scrapItem.price} /kg</Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        ))}
+                </Grid>
+
+                <Box sx={{ m: '1rem' }}><Typography variant='h5'>E-Waste</Typography></Box>
+
+                <Grid container spacing={2}>
+                    {filterScrap
+                        .filter((scrapItem => scrapItem.category === 'E-waste'))
+                        .map((scrapItem) => (
+                            <Grid item xs={5} md={3} lg={2} width={'25rem'} key={scrapItem.scrap}>
+                                <Card sx={{ borderRadius: '15px' }}>
+                                    <CardContent>
+                                        <Typography variant='h5' align='left'>
+                                            {scrapItem.scrap}
+                                        </Typography>
+                                        <Typography variant='body1'>&#8377; {scrapItem.price} /kg</Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        ))}
+                </Grid>
+
+                <Box sx={{ m: '1rem' }}><Typography variant='h5'>Other</Typography></Box>
+
+                <Grid container spacing={2}>
+                    {filterScrap
+                        .filter((scrapItem => scrapItem.category === 'other'))
+                        .map((scrapItem) => (
+                            <Grid item xs={5} md={3} lg={2} width={'25rem'} key={scrapItem.scrap}>
+                                <Card sx={{ borderRadius: '15px' }}>
+                                    <CardContent>
+                                        <Typography variant='h5' align='left'>
+                                            {scrapItem.scrap}
+                                        </Typography>
+                                        <Typography variant='body1'>&#8377; {scrapItem.price} /kg</Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        ))}
+                </Grid>
+
+                
+
+
             </Container>
         </ThemeProvider>
     )

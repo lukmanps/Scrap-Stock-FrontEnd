@@ -16,7 +16,7 @@ import PickupStatus from './sections/status';
 import ScrapItems from './sections/scrap-items';
 import Payment from './sections/payment';
 import { useParams } from 'react-router-dom';
-import axios from '../../../config/axios';
+import axios, { setAccessToken } from '../../../config/axios';
 
 const PickupDetails = () => {
     const { id } = useParams();
@@ -29,6 +29,7 @@ const PickupDetails = () => {
     }
 
     useEffect(() => {
+        setAccessToken('admin');
         axios.get('/admin/pickup-details?id='+id)
             .then((response) => {
                 console.log(response?.data, " :: REsponse Data")

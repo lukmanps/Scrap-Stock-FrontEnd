@@ -18,7 +18,7 @@ import { MaterialSearch } from '../section/material/material-search';
 import { ThemeProvider } from '@emotion/react';
 import GlobalTheme from '../../../Theme/GlobalTheme';
 import AddMaterialModal from '../section/material/add-material-modal';
-import axios from '../../../config/axios';
+import axios, {setAccessToken} from '../../../config/axios';
 import AdminTheme from '../../../Theme/AdminTheme';
 import LoadingScreen from '../../../Common/Loading-screen';
 
@@ -39,6 +39,7 @@ const ScrapManagement = () => {
 
   useEffect(() => {
     if (isLoading) {
+      setAccessToken('admin');
       axios.get('/admin/scrap-management')
         .then((response) => {
           console.log(response.data, ": scrap materials")
