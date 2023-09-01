@@ -40,6 +40,7 @@ import { addUserInfo } from './Redux/user/UserInfoReducer';
 import { isUser } from './Redux/user/AuthReducer';
 import handleLogout from './APIs/user/logoutUtils';
 import LoadingScreen from './Common/Loading-screen';
+import ProfilePage from './pages/user/profile-page';
 
 
 function App() {
@@ -81,6 +82,7 @@ function App() {
             <Route path='/sell-scrap' element={<SellScrapPage />} />
             <Route path='/recent-pickups' element={<RecentPickupsPage />} />
             <Route path='/scheduled-pickup' element={<PickupSuccess />} />
+            <Route path='/profile' element={<ProfilePage />} />
             <Route path='*' element={<PageNotFound/>}/>
           </Route>
           

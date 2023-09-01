@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     axios.get('/admin/get-dashboard-info')
       .then((response) => {
-        console.log(response?.data);
+        console.log(response?.data, " :: REapos Data frjma db");
         setDashboard(response?.data);
       })
       .catch((err) => {

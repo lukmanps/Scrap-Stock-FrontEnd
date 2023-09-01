@@ -22,7 +22,6 @@ import GlobalTheme from '../../../Theme/GlobalTheme';
 import getRecentPickups from '../../../APIs/user/getRecentPickups';
 import { useSelector } from 'react-redux';
 import formatDate from '../../../Common/date-format';
-import axios from '../../../config/axios';
 
 const columns = ['No', 'Date', 'Time Slot', 'Pickup Date', 'Amount', 'Status'];
 
@@ -33,7 +32,6 @@ const RecentPickup = () => {
 
 
   const user = useSelector((state) => state.userInfo);
-
 
   const handlePageChange = (event, newPage) => {
     pageChange(newPage)
@@ -57,7 +55,7 @@ const RecentPickup = () => {
   return (
     <ThemeProvider theme={GlobalTheme}>
 
-      <Container maxWidth='xl'>
+      <Container sx={{justifyContent: 'center'}}>
 
         <Grid container justifyContent={'center'}>
           <Grid item sm={12} lg={4}>

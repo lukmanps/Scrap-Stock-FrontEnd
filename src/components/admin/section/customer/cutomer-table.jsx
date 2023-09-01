@@ -53,8 +53,6 @@ export const CustomersTable = (props) => {
           toast.success('Customer Unblocked');
           fetchUserData();
         }
-
-
       })
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);
