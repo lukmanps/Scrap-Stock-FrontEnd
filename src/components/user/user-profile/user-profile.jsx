@@ -18,12 +18,12 @@ import axios from '../../../config/axios';
 import Axios from 'axios'
 
 const UserProfile = () => {
-    const [username, setUsername] = useState('Lukman');
-    const [phoneNo, setPhoneNo] = useState('9072901837');
+    const user = useSelector((state)=> state.userInfo);
+    const [username, setUsername] = useState(user.username);
+    const [phoneNo, setPhoneNo] = useState(user.phoneNo);
     
     const [image, setImage] = useState('');
-    const user = useSelector((state)=> state.userInfo);
-    console.log(user, 'User data in profile');
+    
 
     const [dp, setDp] = useState(user.profilePicture);
     const dispatch = useDispatch();
@@ -31,7 +31,24 @@ const UserProfile = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const handleUpdate = () => {
-        console.log(username, phoneNo, " :: Updated Details");
+        const userData = {
+            id: user._id,
+            username,
+            phoneNo};
+        if(!username || !phoneNo || phoneNo.length !== 10){
+            toast.error('Enter Valid Details');
+            return false
+        } else {
+            axios.post('/update-user-profile', userData)
+            .then((response) => {
+                console.log(response?.data);
+                dispatch(addUserInfo(response?.data?.detailsUpdated));
+                toast.success('Details Updated successfully!');
+            })
+            .catch((err) =>{ 
+                console.log('err');
+            })
+        }
     }
 
     const uploadImage = () => {
@@ -93,9 +110,9 @@ const UserProfile = () => {
                         </Box>
                         <Box>
                             <Grid item xs={12} md={4}>
-                                <Typography variant='h4'>Lukman</Typography>
-                                <Typography variant='body1' fontWeight={300}>lukmanps2001@gmail.com</Typography>
-                                <Typography variant='body1' fontWeight={300}>9072910837</Typography>
+                                <Typography variant='h4'>{user.username}</Typography>
+                                <Typography variant='body1' fontWeight={300}>{user.email}</Typography>
+                                <Typography variant='body1' fontWeight={300}>{user.phoneNo}</Typography>
                             </Grid>
                         </Box>
                     </Grid>
@@ -111,6 +128,7 @@ const UserProfile = () => {
                                     onChange={(e) => setUsername(e.target.value)} />
 
                                 <TextField
+                                    type='tel'
                                     label='Phone Number'
                                     value={phoneNo}
                                     onChange={(e) => setPhoneNo(e.target.value)}
