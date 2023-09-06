@@ -33,7 +33,7 @@ export const signInWithGoogle = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result?.user;
-                console.log(user?.displayName, user?.email)
+                console.log(user?.photoURL)
                 axios.post('/signin-with-google', user)
                     .then((response) => {
                         resolve(response?.data);

@@ -44,7 +44,7 @@ export default function Login() {
 
           <Grid item xs={12} md={6} marginTop={5}>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <img src="\src\assets\adminlogin.png" alt='Signup Page Vector' width={'100%'} />
+              <img src="\assets\adminlogin.png" alt='Admin Login Vector' width={'100%'} />
             </Box>
           </Grid>
 

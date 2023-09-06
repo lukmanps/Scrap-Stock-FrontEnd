@@ -69,6 +69,10 @@ function UserNavBar({ button, link }) {
     navigate('/check-price-list')
   }
 
+  const handleProfilePage = () => {
+    navigate('/profile');
+  }
+
   const handlePickupsPage = () => {
     navigate('/recent-pickups')
   }
@@ -165,7 +169,7 @@ function UserNavBar({ button, link }) {
             {user ? <Box ml={3}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={user.username} src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={user.username} src={user.profilePicture}/>
                 </IconButton>
               </Tooltip>
 
@@ -189,10 +193,10 @@ function UserNavBar({ button, link }) {
                   <MenuItem>
                     <Typography variant='body2' fontWeight={500}>Hello {user.username},</Typography>
                   </MenuItem>
-                  {/* <Divider />
-                  <MenuItem sx={{py:0}}>
+                  <Divider />
+                  <MenuItem sx={{py:0}} onClick={handleProfilePage}>
                     <Typography variant='body2'>Profile</Typography>
-                  </MenuItem> */}
+                  </MenuItem>
                   <Divider />
                   <MenuItem sx={{py:0}} onClick={handlePickupsPage}>
                     <Typography variant='body2'>Pickups</Typography>

@@ -1,6 +1,6 @@
 import axios from 'axios';
-// "https://scrapstock.online/"
-const instance = axios.create({ baseURL: "http://localhost:3000" });
+// "http://localhost:3000"
+const instance = axios.create({ baseURL: "https://scrapstock.online/" });
 
 export const setAccessToken = (roll) => {
     let token; // Declare the token variable here
