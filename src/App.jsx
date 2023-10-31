@@ -3,36 +3,38 @@ import React, { useEffect, useState } from 'react';
 import './components/user/layout/Layout'
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import GlobalTheme from './Theme/GlobalTheme';
 
 //Layouts
-import AdminLayout from './components/admin/layout/Layout';
-import UserLayout from './components/user/layout/Layout';
+const AdminLayout = React.lazy(() => import('./components/admin/layout/Layout'));
+const UserLayout = React.lazy(() => import('./components/user/layout/Layout'));
 import PageNotFound from './pages/page-not-found';
 
 
 //User Pages
-import UserSignUp from './pages/user/user-signup-page';
-import UserLogin from './pages/user/user-login-page';
-import Home from './pages/user/home-page';
-import SellScrapPage from './pages/user/sell-scrap-page';
-import CheckPriceListPage from './pages/user/check-price-page';
-import RecentPickupsPage from './pages/user/recent-pickup-page';
+const UserSignUp = React.lazy(() => import('./pages/user/user-signup-page'));
+const UserLogin = React.lazy(() => import('./pages/user/user-login-page'));
+const Home = React.lazy(() => import('./pages/user/home-page'));
+const SellScrapPage = React.lazy(() => import('./pages/user/sell-scrap-page'));
+const CheckPriceListPage = React.lazy(() => import('./pages/user/check-price-page'));
+const RecentPickupsPage = React.lazy(() => import('./pages/user/recent-pickup-page'));
+
+const ProfilePage = React.lazy(() => import('./pages/user/profile-page'));
 import ErrorBoundary from './pages/user/useErrorBoundary';
 import PickupSuccess from './components/user/pickups/pickup-success-page';
 
 //Admin Pages
-import AdminLogin from './pages/admin/AdminLoginPage';
-import UserManagement from './pages/admin/UserManagement';
-import AdminDashboard from './pages/admin/AdminDashboardPage';
-import ViewUserPage from './pages/admin/ViewUserPage';
-import AdminDashboardPage from './pages/admin/AdminDashboardPage';
-import ScrapManagement from './pages/admin/ScrapManagementPage';
-import PickupDetailsPage from './pages/admin/PickupDetailsPage';
-import PaymentSuccess from './Common/payment-success';
-import PickupsPage from './pages/admin/pickupsPage';
+const AdminLogin = React.lazy(() => import('./pages/admin/AdminLoginPage'));
+const UserManagement = React.lazy(() => import('./pages/admin/UserManagement'));
+const AdminDashboard = React.lazy(() => import('./pages/admin/AdminDashboardPage'));
+const ViewUserPage = React.lazy(() => import('./pages/admin/ViewUserPage'));
+const AdminDashboardPage = React.lazy(() => import('./pages/admin/AdminDashboardPage'))
+const ScrapManagement = React.lazy(() => import('./pages/admin/ScrapManagementPage'))
+const PickupDetailsPage = React.lazy(() => import('./pages/admin/PickupDetailsPage'))
+const PaymentSuccess = React.lazy(() => import('./Common/payment-success'))
+const PickupsPage = React.lazy(() => import('./pages/admin/pickupsPage'))
 
 //Redux State
 import { isAdmin } from './Redux/admin/AdminInfoReducer';
@@ -40,7 +42,6 @@ import { addUserInfo } from './Redux/user/UserInfoReducer';
 import { isUser } from './Redux/user/AuthReducer';
 import handleLogout from './APIs/user/logoutUtils';
 import LoadingScreen from './Common/Loading-screen';
-import ProfilePage from './pages/user/profile-page';
 
 
 function App() {
@@ -52,7 +53,6 @@ function App() {
   const admin = useSelector((state) => state.adminInfo);
 
   const [isLoading, setIsLoading] = useState(true);
-  const doLogout = handleLogout();
 
   useEffect(() => {
     dispatch(isUser(user));
@@ -72,40 +72,36 @@ function App() {
       <ErrorBoundary>
         <Routes>
 
-          <Route path='/login' element={user ? <Navigate to={'/'} replace={true} /> : <UserLogin />} />
-          <Route path='/signup' element={user ? <Navigate to={'/'} replace={true} /> : <UserSignUp />} />
+          <Route path='/login' element={user ? <Navigate to={'/'} replace={true} /> : <React.Suspense fallback={<LoadingScreen />}> <UserLogin /> </React.Suspense>} />
+          <Route path='/signup' element={user ? <Navigate to={'/'} replace={true} /> : <React.Suspense fallback={<LoadingScreen />}> <UserSignUp /> </React.Suspense>} />
+          <Route path='/' element={ <React.Suspense fallback={<LoadingScreen />}> <Home /> </React.Suspense>} />
+          <Route path='/check-price-list' element={<React.Suspense fallback={<LoadingScreen />}> <CheckPriceListPage /> </React.Suspense> } />
 
-          <Route path='/' element={<Home />} />
-          <Route path='/check-price-list' element={<CheckPriceListPage />} />
-
-          <Route path='/' element={user ? <UserLayout /> : <Navigate to={'/login'} replace={true} />}>
-            <Route path='/sell-scrap' element={<SellScrapPage />} />
-            <Route path='/recent-pickups' element={<RecentPickupsPage />} />
-            <Route path='/scheduled-pickup' element={<PickupSuccess />} />
-            <Route path='/profile' element={<ProfilePage />} />
-            <Route path='*' element={<PageNotFound/>}/>
+          <Route path='/' element={user ? <React.Suspense fallback={<LoadingScreen />}> <UserLayout /> </React.Suspense> : <Navigate to={'/login'} replace={true} />}>
+            <Route path='sell-scrap' element={ <React.Suspense fallback={<LoadingScreen />}> <SellScrapPage /> </React.Suspense> } />
+            <Route path='recent-pickups' element={<React.Suspense fallback={<LoadingScreen />}> <RecentPickupsPage /> </React.Suspense>} />
+            <Route path='scheduled-pickup' element={<React.Suspense fallback={<LoadingScreen />}> <PickupSuccess /> </React.Suspense>} />
+            <Route path='profile' element={<React.Suspense fallback={<LoadingScreen />}> <ProfilePage /> </React.Suspense>} />
+            <Route path='*' element={<PageNotFound />} />
           </Route>
-          
 
 
+          {/* :::::::::::::::::::::::::::::::::::::::::::::::: - Admin Side - ::::::::::::::::::::::::::::::::::::::::::::::::::: */}
 
-
-      {/* :::::::::::::::::::::::::::::::::::::::::::::::: - Admin Side - ::::::::::::::::::::::::::::::::::::::::::::::::::: */}
-
-          <Route path='/admin/login' element={admin ? <Navigate to={'/admin'} replace={true} /> : <AdminLogin />} />
+          <Route path='/admin/login' element={admin ? <Navigate to={'/admin'} replace={true} /> : <React.Suspense fallback={<LoadingScreen />}> <AdminLogin /> </React.Suspense>} />
 
           <Route path='/admin' element={admin ? <AdminLayout /> : <Navigate to={'/admin/login'} replace={true} />} >
-            <Route index element={<AdminDashboardPage />} />
-            <Route path='user-management' element={<UserManagement />} />
-            <Route path='view-user/:id' element={<ViewUserPage />} />
-            <Route path='scrap-management' element={<ScrapManagement />} />
-            <Route path='pickups' element={<PickupsPage />} />
-            <Route path='pickup-details/:id' element={<PickupDetailsPage />} />
-            <Route path='*' element={<PageNotFound/>}/>
+            <Route index element={<React.Suspense fallback={<LoadingScreen />}> <AdminDashboardPage /> </React.Suspense>} />
+            <Route path='user-management' element={<React.Suspense fallback={<LoadingScreen />}> <UserManagement /> </React.Suspense>} />
+            <Route path='view-user/:id' element={<React.Suspense fallback={<LoadingScreen />}> <ViewUserPage /> </React.Suspense>} />
+            <Route path='scrap-management' element={<React.Suspense fallback={<LoadingScreen />}> <ScrapManagement /> </React.Suspense>} />
+            <Route path='pickups' element={<React.Suspense fallback={<LoadingScreen />}> <PickupsPage /> </React.Suspense>} />
+            <Route path='pickup-details/:id' element={<React.Suspense fallback={<LoadingScreen />}> <PickupDetailsPage /> </React.Suspense>} />
+            <Route path='*' element={<PageNotFound />} />
           </Route>
 
 
-          <Route path='/admin/payment-success' element={<PaymentSuccess />} />
+          <Route path='/admin/payment-success' element={<React.Suspense fallback={<LoadingScreen />}> <PaymentSuccess /> </React.Suspense>} />
         </Routes>
 
       </ErrorBoundary>

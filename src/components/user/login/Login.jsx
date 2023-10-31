@@ -16,7 +16,6 @@ import { signInWithGoogle } from '../../../config/firebase';
 import { toast, Toaster }  from 'react-hot-toast';
 
 
-
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,6 +24,8 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   let loginErr = '';
+
+  console.log("Login Page on board!")
 
   const handleSignInWithGoogle = () => {
     signInWithGoogle()

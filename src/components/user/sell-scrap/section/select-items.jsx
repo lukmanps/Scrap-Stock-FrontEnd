@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import {
   Card,
   Box,
@@ -16,23 +16,19 @@ import {
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import toast, { Toaster } from 'react-hot-toast';
-import GlobalTheme from '../../../../Theme/GlobalTheme';
 import AdminTheme from '../../../../Theme/AdminTheme';
 import fetchScrapItems from '../../../../APIs/user/fetchScraps';
 import { useNavigate } from 'react-router-dom';
-import handleLogout from '../../../../APIs/user/logoutUtils';
 
 const SelectItems = (props) => {
   const { selectedData } = props;
   const [selectedItems, setSelectedItems] = useState({});
   const [scrap, setScrap] = useState([]);
-  const navigate = useNavigate();
   const [textFieldValue, setTextFieldValue] = useState(Array(scrap.length).fill(''));
-  
+  const navigate = useNavigate();
 
   const handleCheckBoxChange = (event) => {
     const { name, checked } = event.target;
-
     setSelectedItems((prevSelectedItems) => ({
       ...prevSelectedItems,
       [name]: checked,
@@ -54,6 +50,8 @@ const SelectItems = (props) => {
         item: key,
         quantity: textFieldValue[scrap.findIndex(item => item._id === key)] || 0,
       }));
+
+    console.log(data, 'Data clicking next');
 
     if (data.length === 0) {
       toast.error('Select scraps that you would like to sell!');

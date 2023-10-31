@@ -7,16 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import GlobalTheme from '../../../Theme/GlobalTheme';
 import { CommonButton } from '../../../Common/CommonButton';
-
-import ErrorText from '../../../Common/ErrorText';
 import axios from '../../../config/axios';
 import { isUser } from '../../../Redux/user/AuthReducer';
 import { addUserInfo } from '../../../Redux/user/UserInfoReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInWithGoogle } from '../../../config/firebase';
-
-
-
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -28,6 +23,7 @@ export default function Signup() {
   })
 
   console.log(authUser, " : SIGN UP AUTH STATUS");
+  console.log("Register page onboard!");
 
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
 

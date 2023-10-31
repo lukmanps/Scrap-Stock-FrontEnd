@@ -42,12 +42,13 @@ const ReviewForm = () => {
     const [hover, setHover] = React.useState(-1);
 
     const user = useSelector((state) => state.userInfo);
-    const userId = user.id;
+    const userId = user._id;
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const handleForm = (data) => {
         const review = data.review;
+        console.log(value, 'Rating Values');
         if (value === 0 || !value || !userId) {
             toast.error('Please add your rating to submit!');
         } else {

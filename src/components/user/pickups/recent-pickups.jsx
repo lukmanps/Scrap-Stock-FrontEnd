@@ -33,6 +33,8 @@ const RecentPickup = () => {
 
   const user = useSelector((state) => state.userInfo);
 
+  console.log(user, " user details");
+
   const handlePageChange = (event, newPage) => {
     pageChange(newPage)
   }
@@ -43,7 +45,7 @@ const RecentPickup = () => {
   }
 
   async function getPickups() {
-    const pickups = await getRecentPickups(user.id);
+    const pickups = await getRecentPickups(user._id);
     setPickup(pickups);
   }
 

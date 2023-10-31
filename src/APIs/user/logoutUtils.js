@@ -18,6 +18,4 @@ const handleLogout = () => {
   return performLogout;
 };
 
-console.log(localStorage.getItem('userToken'), " ::USER TOKEN in local storage");
-
 export default handleLogout;

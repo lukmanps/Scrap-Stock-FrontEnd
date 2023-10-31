@@ -20,7 +20,7 @@ const GlobalTheme = createTheme({
 
     //Typography
     typography: {
-        fontFamily: 'poppins',
+        fontFamily: 'helvetica',
         color: {
             primary: '#018A44',
             secondary: '#ffffff'

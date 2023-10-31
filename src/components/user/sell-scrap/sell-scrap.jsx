@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import SelectItems from './section/select-items';
 import { useSelector } from 'react-redux';
 import EnterDetails from './section/enter-details';
 import toast, { Toaster } from 'react-hot-toast';
 import TimeSlote from './section/time-slot';
-import { Box, Stepper, Step, StepLabel, StepButton, Typography, Button, ThemeProvider } from '@mui/material';
+import { Box, Stepper, Step, StepLabel, StepButton, Typography, Button, ThemeProvider, colors } from '@mui/material';
 import GlobalTheme from '../../../Theme/GlobalTheme';
 import submitPickupSchedule from '../../../APIs/user/submit-pickup-schedule';
 import { useNavigate } from 'react-router-dom';
@@ -65,12 +65,13 @@ const SellScrap = () => {
   };
 
 
-  //Data State
+  //Selected Scrap State Management
   const handleSelectedItems = (data) => {
     setScrap(data);
     handleNext();
   }
 
+  //Form Data State Management
   const handleFormData = (data) => {
     if (!data) {
       toast.error('Enter your Details');
@@ -79,6 +80,8 @@ const SellScrap = () => {
       handleNext();
     }
   }
+
+  //Time Slot State Management
   const handleTimeSlot = (date, time) => {
     setTimeSlot({
       date: date,
@@ -113,7 +116,7 @@ const SellScrap = () => {
         <Stepper nonLinear activeStep={activeStep}>
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]}>
-              <StepButton color="secondary" onClick={handleStep(index)}>
+              <StepButton onClick={handleStep(index)}>
                 {label}
               </StepButton>
             </Step>

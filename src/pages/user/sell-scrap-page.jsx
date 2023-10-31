@@ -7,7 +7,7 @@ const SellScrapPage = () => {
 
   return (
     <div id='user-body'>
-      <SellScrap/>
+      <SellScrap />
     </div>
   )
 }
